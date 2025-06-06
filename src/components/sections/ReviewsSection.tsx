@@ -2,7 +2,6 @@ import { Box, Container, Typography, Card, CardContent, Avatar, Chip } from '@mu
 import { motion } from 'framer-motion';
 import StarIcon from '@mui/icons-material/Star';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
-import BackgroundPattern from './BackgroundPattern';
 
 const reviews = [
   {
@@ -45,10 +44,37 @@ const reviews = [
 
 const ReviewsSection = () => {
   return (
-    <Box sx={{ py: 8, bgcolor: '#fff5f2', position: 'relative', overflow: 'hidden' }}>
-      <BackgroundPattern color="#f2aa8d" size={400} top={-100} right={-100} />
-      <BackgroundPattern color="#1e7dbd" size={300} bottom={-50} left={-50} />
-      <Container sx={{ position: 'relative', zIndex: 1 }}>
+    <Box sx={{ py: 8, position: 'relative', overflow: 'hidden' }}>
+      {/* Паттерн из кругов */}
+      <Box sx={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: 'none' }}>
+        <svg width="100%" height="100%" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', left: 0, top: 0 }}>
+          <circle cx="180" cy="60" r="48" fill="#1e7dbd" fillOpacity="0.08">
+            <animate attributeName="r" values="48;52;48" dur="4s" repeatCount="indefinite" />
+            <animate attributeName="fillOpacity" values="0.08;0.12;0.08" dur="4s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="1000" cy="100" r="60" fill="#f2aa8d" fillOpacity="0.09">
+            <animate attributeName="r" values="60;64;60" dur="5s" repeatCount="indefinite" />
+            <animate attributeName="fillOpacity" values="0.09;0.13;0.09" dur="5s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="300" cy="260" r="36" fill="#f2aa8d" fillOpacity="0.08">
+            <animate attributeName="r" values="36;40;36" dur="4.5s" repeatCount="indefinite" />
+            <animate attributeName="fillOpacity" values="0.08;0.12;0.08" dur="4.5s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="900" cy="220" r="42" fill="#1e7dbd" fillOpacity="0.07">
+            <animate attributeName="r" values="42;46;42" dur="5.5s" repeatCount="indefinite" />
+            <animate attributeName="fillOpacity" values="0.07;0.11;0.07" dur="5.5s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="600" cy="80" r="30" fill="#1e7dbd" fillOpacity="0.06">
+            <animate attributeName="r" values="30;34;30" dur="4s" repeatCount="indefinite" />
+            <animate attributeName="fillOpacity" values="0.06;0.10;0.06" dur="4s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="700" cy="280" r="54" fill="#f2aa8d" fillOpacity="0.07">
+            <animate attributeName="r" values="54;58;54" dur="5s" repeatCount="indefinite" />
+            <animate attributeName="fillOpacity" values="0.07;0.11;0.07" dur="5s" repeatCount="indefinite" />
+          </circle>
+        </svg>
+      </Box>
+      <Container sx={{ position: 'relative', zIndex: 2 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,13 +107,11 @@ const ReviewsSection = () => {
                   flexDirection: 'column',
                   position: 'relative',
                   transition: 'all 0.3s ease-in-out',
-                  background: 'rgba(255, 255, 255, 0.9)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  background: '#fff',
+                  boxShadow: '0 4px 24px rgba(30,125,189,0.1)',
                   '&:hover': {
                     transform: 'translateY(-8px)',
-                    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.1)',
-                    background: 'rgba(255, 255, 255, 0.95)',
+                    boxShadow: '0 12px 24px rgba(30,125,189,0.15)',
                   },
                 }}
               >
@@ -98,9 +122,7 @@ const ReviewsSection = () => {
                     left: 0,
                     right: 0,
                     height: '4px',
-                    background: 'linear-gradient(90deg, #1e7dbd, #f2aa8d)',
-                    borderTopLeftRadius: '12px',
-                    borderTopRightRadius: '12px',
+                    background: index % 2 === 0 ? '#1e7dbd' : '#f2aa8d',
                   }}
                 />
                 <CardContent sx={{ flexGrow: 1, pt: 4, px: 3, pb: 3 }}>
@@ -113,7 +135,7 @@ const ReviewsSection = () => {
                         height: 64,
                         mr: 2,
                         border: '3px solid #fff',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        boxShadow: '0 4px 12px rgba(30,125,189,0.1)',
                       }}
                     />
                     <Box>
@@ -127,7 +149,7 @@ const ReviewsSection = () => {
                         label={review.subject}
                         size="small"
                         sx={{
-                          bgcolor: '#f2aa8d',
+                          bgcolor: index % 2 === 0 ? '#1e7dbd' : '#f2aa8d',
                           color: '#fff',
                           fontWeight: 500,
                           fontSize: '0.75rem',
@@ -137,7 +159,7 @@ const ReviewsSection = () => {
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                     {[...Array(review.rating)].map((_, i) => (
-                      <StarIcon key={i} sx={{ color: '#f2aa8d', fontSize: 20 }} />
+                      <StarIcon key={i} sx={{ color: index % 2 === 0 ? '#1e7dbd' : '#f2aa8d', fontSize: 20 }} />
                     ))}
                   </Box>
                   <Typography
@@ -151,7 +173,7 @@ const ReviewsSection = () => {
                       pl: 0,
                     }}
                   >
-                    <FormatQuoteIcon sx={{ fontSize: 24, color: '#f2aa8d', opacity: 0.3, mt: '2px' }} />
+                    <FormatQuoteIcon sx={{ fontSize: 24, color: index % 2 === 0 ? '#1e7dbd' : '#f2aa8d', opacity: 0.3, mt: '2px' }} />
                     {review.text}
                   </Typography>
                 </CardContent>
