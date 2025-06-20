@@ -36,36 +36,6 @@ const PricesSection: React.FC = () => {
 
   return (
     <Box sx={{ py: 8, position: 'relative', overflow: 'hidden' }}>
-      {/* Паттерн из кругов */}
-      <Box sx={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: 'none' }}>
-        <svg width="100%" height="100%" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', left: 0, top: 0 }}>
-          <circle cx="180" cy="60" r="48" fill="#1e7dbd" fillOpacity="0.08">
-            <animate attributeName="r" values="48;52;48" dur="4s" repeatCount="indefinite" />
-            <animate attributeName="fillOpacity" values="0.08;0.12;0.08" dur="4s" repeatCount="indefinite" />
-          </circle>
-          <circle cx="1000" cy="100" r="60" fill="#1e7dbd" fillOpacity="0.09">
-            <animate attributeName="r" values="60;64;60" dur="5s" repeatCount="indefinite" />
-            <animate attributeName="fillOpacity" values="0.09;0.13;0.09" dur="5s" repeatCount="indefinite" />
-          </circle>
-          <circle cx="300" cy="260" r="36" fill="#1e7dbd" fillOpacity="0.08">
-            <animate attributeName="r" values="36;40;36" dur="4.5s" repeatCount="indefinite" />
-            <animate attributeName="fillOpacity" values="0.08;0.12;0.08" dur="4.5s" repeatCount="indefinite" />
-          </circle>
-          <circle cx="900" cy="220" r="42" fill="#1e7dbd" fillOpacity="0.07">
-            <animate attributeName="r" values="42;46;42" dur="5.5s" repeatCount="indefinite" />
-            <animate attributeName="fillOpacity" values="0.07;0.11;0.07" dur="5.5s" repeatCount="indefinite" />
-          </circle>
-          <circle cx="600" cy="80" r="30" fill="#1e7dbd" fillOpacity="0.06">
-            <animate attributeName="r" values="30;34;30" dur="4s" repeatCount="indefinite" />
-            <animate attributeName="fillOpacity" values="0.06;0.10;0.06" dur="4s" repeatCount="indefinite" />
-          </circle>
-          <circle cx="700" cy="280" r="54" fill="#1e7dbd" fillOpacity="0.07">
-            <animate attributeName="r" values="54;58;54" dur="5s" repeatCount="indefinite" />
-            <animate attributeName="fillOpacity" values="0.07;0.11;0.07" dur="5s" repeatCount="indefinite" />
-          </circle>
-        </svg>
-      </Box>
-
       <Typography variant="h4" textAlign="center" sx={{ mb: 4, fontWeight: 700, color: '#1e7dbd', zIndex: 2, position: 'relative' }}>Стоимость обучения</Typography>
       
       <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 5, position: 'relative', zIndex: 2 }}>
@@ -282,10 +252,11 @@ const PricesSection: React.FC = () => {
                   boxShadow: '0 4px 12px rgba(30,125,189,0.2)',
                   transition: 'all 0.3s ease',
                   '&:hover': {
-                    bgcolor: '#1e7dbd',
+                    bgcolor: '#f2aa8d',
+                    color: '#fff',
+                    boxShadow: '0 6px 16px rgba(242,170,141,0.3)',
                     transform: 'translateY(-2px)',
-                    boxShadow: '0 6px 16px rgba(30,125,189,0.3)',
-                  }
+                  },
                 }}
               >
                 Записаться

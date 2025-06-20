@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box, Typography, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { motion, useInView, useAnimation } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 

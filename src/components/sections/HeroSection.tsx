@@ -1,13 +1,38 @@
-import React, { memo } from 'react';
-import { Box, Typography, Button, Container } from '@mui/material';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Box, Typography, Container, Paper } from '@mui/material';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import StarIcon from '@mui/icons-material/Star';
+import SchoolIcon from '@mui/icons-material/School';
+import GroupsIcon from '@mui/icons-material/Groups';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import { motion } from 'framer-motion';
-import { HeroPattern } from '../ui/HeroPattern';
+
+const advantages = [
+  {
+    icon: <EmojiEventsIcon />, color: '#1e7dbd', stripe: '#1e7dbd', text: '3 года на рынке',
+  },
+  {
+    icon: <StarIcon />, color: '#f2aa8d', stripe: '#f2aa8d', text: 'Каждый второй сдал ЕГЭ на 80+ баллов',
+  },
+  {
+    icon: <WorkspacePremiumIcon />, color: '#1e7dbd', stripe: '#1e7dbd', text: 'Профессиональные экзамены ЕГЭ',
+  },
+  {
+    icon: <SchoolIcon />, color: '#f2aa8d', stripe: '#f2aa8d', text: 'Молодые преподаватели',
+  },
+  {
+    icon: <Diversity3Icon />, color: '#1e7dbd', stripe: '#1e7dbd', text: 'Особый подход к каждому ученику',
+  },
+  {
+    icon: <GroupsIcon />, color: '#f2aa8d', stripe: '#f2aa8d', text: 'Группы до 8 человек',
+  },
+];
 
 const styles = {
   container: {
-    py: { xs: 12, md: 14 },
+    py: { xs: 10, md: 16 },
     position: 'relative',
     overflow: 'hidden',
   },
@@ -15,164 +40,207 @@ const styles = {
     position: 'relative',
     zIndex: 2,
     display: 'flex',
-    flexDirection: { xs: 'column', md: 'row' },
-    alignItems: 'center',
-    gap: { xs: 4, md: 8 },
-  },
-  leftSection: {
-    flex: 1,
-    display: 'flex',
     flexDirection: 'column',
-    gap: 3,
-  },
-  rightSection: {
-    flex: 1,
-    position: 'relative',
+    alignItems: 'center',
+    gap: 4,
   },
   title: {
-    fontWeight: 800,
-    fontSize: { xs: '2.5rem', md: '3.5rem' },
-    lineHeight: 1.2,
+    fontWeight: 900,
+    fontSize: { xs: '2.2rem', md: '3.2rem' },
     color: '#1e7dbd',
-    textAlign: { xs: 'center', md: 'left' },
+    textAlign: 'center',
+    lineHeight: 1.13,
+    mb: 0.5,
+  },
+  titleAccentBlue: {
+    color: '#1e7dbd',
+    display: 'inline',
+    fontWeight: 900,
+  },
+  titleAccentOrange: {
+    color: '#f2aa8d',
+    display: 'inline',
+    fontWeight: 900,
   },
   subtitle: {
     color: '#64748b',
-    fontSize: { xs: '1.1rem', md: '1.25rem' },
+    fontSize: { xs: '1.15rem', md: '1.35rem' },
     lineHeight: 1.6,
-    textAlign: { xs: 'center', md: 'left' },
+    textAlign: 'center',
     maxWidth: 600,
+    mb: 2,
   },
-  button: {
-    mt: 'auto',
+  subtitleAccent: {
+    color: '#1e7dbd',
+    fontWeight: 700,
+    display: 'inline',
   },
-  imageWrapper: {
-    position: 'relative',
-    width: '100%',
-    maxWidth: 500,
-    mx: 'auto',
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      top: -20,
-      left: -20,
-      right: -20,
-      bottom: -20,
-      background: '#1e7dbd10',
-      borderRadius: 8,
-      zIndex: -1,
-    },
-  },
-  image: {
-    width: '100%',
-    height: 'auto',
-    borderRadius: 8,
-    boxShadow: '0 20px 40px rgba(30,125,189,0.15)',
-    transition: 'all 0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.02)',
-      boxShadow: '0 24px 48px rgba(30,125,189,0.2)',
-    },
-  },
-  features: {
+  badgeRow: {
     display: 'flex',
-    gap: 3,
-    mt: 4,
+    gap: 1.5,
+    mb: 2,
     flexWrap: 'wrap',
-    justifyContent: { xs: 'center', md: 'flex-start' },
+    justifyContent: 'center',
+    mt: 1,
   },
-  featureItem: {
-    display: 'flex',
+  badge: {
+    fontWeight: 700,
+    fontSize: '0.95rem',
+    px: 2,
+    py: 0.5,
+    borderRadius: 2,
+    boxShadow: '0 1px 6px rgba(30,125,189,0.08)',
+    display: 'inline-flex',
     alignItems: 'center',
     gap: 1,
+    bgcolor: '#1e7dbd',
+    color: '#fff',
+    letterSpacing: 0.3,
+    textTransform: 'uppercase',
+    minHeight: 28,
+    height: 28,
+  },
+  giftBadge: {
+    bgcolor: '#e3f0fa',
     color: '#1e7dbd',
-    fontWeight: 600,
-    fontSize: '1.1rem',
+    fontWeight: 700,
+    fontSize: '0.95rem',
+    px: 2,
+    py: 0.5,
+    borderRadius: 2,
+    boxShadow: '0 1px 6px rgba(30,125,189,0.06)',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 1,
+    letterSpacing: 0.3,
+    textTransform: 'uppercase',
+    minHeight: 28,
+    height: 28,
+  },
+  advGrid: {
+    display: 'grid',
+    gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' },
+    gap: { xs: 2, md: 3 },
+    width: '100%',
+    maxWidth: 1000,
+    mt: 2,
+  },
+  advCard: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 1.5,
+    bgcolor: '#fff',
+    borderRadius: 4,
+    boxShadow: '0 2px 10px 0 rgba(30,125,189,0.07)',
+    px: 2.5,
+    py: 1.5,
+    minHeight: 90,
+    maxHeight: 90,
+    height: 90,
+    position: 'relative',
+    overflow: 'hidden',
+    textAlign: 'left',
+    border: 'none',
+    transition: 'box-shadow 0.3s, transform 0.3s',
+    '&:hover': {
+      boxShadow: '0 6px 18px 0 #1e7dbd18',
+      transform: 'scale(1.025)',
+    },
+  },
+  advCardInner: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 1.5,
+    width: '100%',
+    px: 2,
+    py: 0,
+    position: 'relative',
+    zIndex: 3,
+  },
+  advIconCircle: {
+    minWidth: 38,
+    minHeight: 38,
+    maxWidth: 38,
+    maxHeight: 38,
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 22,
+    boxShadow: '0 1px 4px rgba(30,125,189,0.08)',
+    mr: 1.5,
+    zIndex: 3,
+    bgcolor: '#f7fafd',
   },
 };
 
-const HeroSection: React.FC = memo(() => {
-  const navigate = useNavigate();
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.97, y: 18 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { delay: i * 0.08, duration: 0.5, type: 'spring', stiffness: 120 },
+  }),
+};
 
+const HeroSection: React.FC = () => {
   return (
     <Box sx={styles.container}>
-      <HeroPattern />
       <Container maxWidth="lg">
         <Box sx={styles.content}>
-          <Box sx={styles.leftSection}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Typography variant="h1" sx={styles.title}>
-                Подготовка к ЕГЭ и ОГЭ
+          <Typography variant="h1" sx={{ ...styles.title, mt: { xs: 4, md: 0 }, fontSize: { xs: 28, md: 36 } }}>
+            Подготовка к <span style={styles.titleAccentOrange}>ЕГЭ</span> и <span style={styles.titleAccentOrange}>ОГЭ</span>
+          </Typography>
+          {/* Стикеры для xs/sm в виде тонких плашек в одну строку */}
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, flexDirection: 'row', gap: 2, mb: 3 }}>
+            <Box sx={{ flex: 1, height: 60, borderRadius: '30px', bgcolor: '#1e7dbd', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', transition: 'transform 0.3s ease', '&:hover': { transform: 'translateY(-5px)' } }}>
+              <CardGiftcardIcon sx={{ position: 'absolute', left: '50%', top: '50%', fontSize: 42, opacity: 0.13, color: '#fff', transform: 'translate(-50%, -50%)' }} />
+              <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: 14, textAlign: 'center', zIndex: 2, lineHeight: 1.1, position: 'relative' }}>
+                Бесплатное пробное занятие
               </Typography>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Typography sx={styles.subtitle}>
-                Индивидуальный подход к каждому ученику, мини-группы до 8 человек. 
-                Наши преподаватели помогут вам достичь максимального результата на экзаменах.
-              </Typography>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <Button
-                variant="contained"
-                size="large"
-                endIcon={<ArrowForwardIcon />}
-                onClick={() => navigate('/trial')}
-                sx={styles.button}
-              >
-                Пробный урок
-              </Button>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              <Box sx={styles.features}>
-                <Box sx={styles.featureItem}>✓ Индивидуальный подход</Box>
-                <Box sx={styles.featureItem}>✓ Опытные преподаватели</Box>
-                <Box sx={styles.featureItem}>✓ Удобный формат</Box>
-              </Box>
-            </motion.div>
-          </Box>
-
-          <Box sx={styles.rightSection}>
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <Box sx={styles.imageWrapper}>
-                <Box
-                  component="img"
-                  src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&auto=format&fit=crop&q=60"
-                  alt="Подготовка к экзаменам"
-                  sx={styles.image}
-                />
-              </Box>
             </Box>
+            <Box sx={{ flex: 1, height: 60, borderRadius: '30px', bgcolor: '#f2aa8d', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', transition: 'transform 0.3s ease', '&:hover': { transform: 'translateY(-5px)' } }}>
+              <CardGiftcardIcon sx={{ position: 'absolute', left: '50%', top: '50%', fontSize: 42, opacity: 0.13, color: '#fff', transform: 'translate(-50%, -50%)' }} />
+              <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: 14, textAlign: 'center', zIndex: 2, lineHeight: 1.1, position: 'relative' }}>
+                Подарок за друга
+              </Typography>
+            </Box>
+          </Box>
+          <Typography variant="h2" sx={styles.subtitle}>
+            <span style={styles.subtitleAccent}>Индивидуальный подход</span>, <span style={styles.subtitleAccent}>мини-группы</span>, молодые преподаватели и реальные результаты.<br />
+            Поможем сдать экзамены на <span style={styles.subtitleAccent}>80+ баллов</span> и поступить в вуз мечты!
+          </Typography>
+          <Box sx={styles.advGrid}>
+            {advantages.map((adv, i) => (
+              <Paper
+                key={i}
+                elevation={0}
+                sx={{
+                  ...styles.advCard,
+                  borderLeft: `8px solid ${adv.stripe}`,
+                }}
+                component={motion.div}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                custom={i}
+              >
+                <Box sx={styles.advCardInner}>
+                  <Box sx={{ ...styles.advIconCircle }}>
+                    {React.cloneElement(adv.icon, { sx: { color: adv.color, fontSize: 36 } })}
+                  </Box>
+                  <Typography sx={{ fontWeight: 600, fontSize: { xs: 15, md: 16 }, lineHeight: 1.3 }}>{adv.text}</Typography>
+                </Box>
+              </Paper>
+            ))}
           </Box>
         </Box>
       </Container>
     </Box>
   );
-});
+};
 
-HeroSection.displayName = 'HeroSection';
-
-export default HeroSection; 
+export default HeroSection;

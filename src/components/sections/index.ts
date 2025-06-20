@@ -1,11 +1,7 @@
 export { default as HeroSection } from './HeroSection';
 export { default as WhyUsSection } from './WhyUsSection';
 export { default as ReviewsSection } from './ReviewsSection';
-export { default as TeachersSection } from './TeachersSection';
 export { default as ContactSection } from './ContactSection';
-export { default as FAQSection } from './FAQSection';
 export { default as PricesSection } from './PricesSection';
-export { default as TrialFormSection } from './TrialFormSection';
 export { default as BenefitsSection } from './BenefitsSection';
-export { default as FormatsSection } from './FormatsSection';
 export { default as StatsSection } from './StatsSection'; 

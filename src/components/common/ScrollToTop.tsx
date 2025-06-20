@@ -36,6 +36,11 @@ const ScrollToTop = () => {
           bottom: 16,
           right: 16,
           zIndex: 1000,
+          transition: 'background 0.3s',
+          '&:hover': {
+            bgcolor: '#f2aa8d',
+            color: '#fff',
+          },
         }}
       >
         <KeyboardArrowUpIcon />

@@ -25,16 +25,6 @@ const ContactSection: React.FC = () => {
 
   return (
     <Box sx={{ py: 8, position: 'relative', overflow: 'hidden' }}>
-      {/* Паттерн из кругов */}
-      <Box sx={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: 'none' }}>
-        <svg width="100%" height="100%" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', left: 0, top: 0 }}>
-          <circle cx="180" cy="60" r="32" fill="#1e7dbd" fillOpacity="0.07" />
-          <circle cx="1000" cy="100" r="40" fill="#f2aa8d" fillOpacity="0.09" />
-          <circle cx="300" cy="260" r="24" fill="#f2aa8d" fillOpacity="0.08" />
-          <circle cx="900" cy="220" r="30" fill="#1e7dbd" fillOpacity="0.07" />
-        </svg>
-      </Box>
-
       <Typography variant="h4" textAlign="center" sx={{ mb: 4, fontWeight: 700, color: '#1e7dbd', zIndex: 2, position: 'relative' }}>Свяжитесь с нами</Typography>
       
       <Box sx={{ maxWidth: 1200, mx: 'auto', px: 2, position: 'relative', zIndex: 2 }}>

@@ -1,4 +1,4 @@
-import React, { memo, lazy, Suspense } from 'react';
+import { memo, lazy, Suspense } from 'react';
 import { Box, Container, Typography, IconButton, Link, Skeleton } from '@mui/material';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import TelegramIcon from '@mui/icons-material/Telegram';
