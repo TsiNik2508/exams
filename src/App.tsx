@@ -4,26 +4,45 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme/index';
 import { Navbar, Footer } from './components/common';
 import { Background } from './components/ui';
-import SubjectPage from './components/pages/SubjectPage';
 import ScrollToTop from './components/common/ScrollToTop';
-import HeroSection from './components/sections/HeroSection';
-import BenefitsSection from './components/sections/BenefitsSection';
-import PricesSection from './components/sections/PricesSection';
-import ReviewsSection from './components/sections/ReviewsSection';
-import ContactSection from './components/sections/ContactSection';
-import WhyUsSection from './components/sections/WhyUsSection';
-import SummerCoursePage from './components/pages/SummerCoursePage';
+import React, { Suspense, lazy } from 'react';
 
-const HomePage = () => (
-  <>
+// Ленивая загрузка страниц для улучшения производительности
+const SubjectPage = lazy(() => import('./components/pages/SubjectPage'));
+const SummerCoursePage = lazy(() => import('./components/pages/SummerCoursePage'));
+const HeroSection = lazy(() => import('./components/sections/HeroSection'));
+const BenefitsSection = lazy(() => import('./components/sections/BenefitsSection'));
+const PricesSection = lazy(() => import('./components/sections/PricesSection'));
+const ReviewsSection = lazy(() => import('./components/sections/ReviewsSection'));
+const ContactSection = lazy(() => import('./components/sections/ContactSection'));
+const WhyUsSection = lazy(() => import('./components/sections/WhyUsSection'));
+
+// Компонент загрузки
+const LoadingFallback = () => (
+  <Box 
+    sx={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      minHeight: '200px',
+      color: '#1e7dbd'
+    }}
+  >
+    Загрузка...
+  </Box>
+);
+
+// Мемоизируем HomePage
+const HomePage = React.memo(() => (
+  <Suspense fallback={<LoadingFallback />}>
     <HeroSection />
     <BenefitsSection />
     <WhyUsSection />
     <ReviewsSection />
     <PricesSection />
     <ContactSection />
-  </>
-);
+  </Suspense>
+));
 
 function App() {
   return (
@@ -35,11 +54,13 @@ function App() {
             <ScrollToTop />
             <Navbar />
             <Box component="main" sx={{ backgroundColor: 'transparent' }}>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/summer" element={<SummerCoursePage />} />
-                <Route path="/:examType/:subject" element={<SubjectPage />} />
-              </Routes>
+              <Suspense fallback={<LoadingFallback />}>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/summer" element={<SummerCoursePage />} />
+                  <Route path="/:examType/:subject" element={<SubjectPage />} />
+                </Routes>
+              </Suspense>
             </Box>
             <Footer />
           </Box>
@@ -49,4 +70,4 @@ function App() {
   );
 }
 
-export default App;
+export default React.memo(App);

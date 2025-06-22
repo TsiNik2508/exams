@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
+import React from 'react';
 
-export const Background = () => {
+export const Background = React.memo(() => {
   return (
     <Box
       sx={{
@@ -14,17 +15,34 @@ export const Background = () => {
         overflow: 'hidden',
       }}
     >
-      {/* Только толстая статичная линия */}
+      {/* Упрощенная статичная линия */}
       <svg
-        width="100vh"
-        height="100vh"
+        width="100%"
+        height="100%"
         viewBox="0 0 1440 900"
         fill="none"
-        style={{ position: 'fixed', left: 0, top: 0, width: '100vw', height: '100vh', zIndex: 0, pointerEvents: 'none' }}
-        aria-hidden
+        style={{ 
+          position: 'absolute', 
+          left: 0, 
+          top: 0, 
+          width: '100%', 
+          height: '100%', 
+          zIndex: 0, 
+          pointerEvents: 'none',
+          willChange: 'auto' // Оптимизация для GPU
+        }}
+        aria-hidden="true"
+        preserveAspectRatio="none"
       >
-        <path d="M-100 400 Q 400 200 900 600 T 1540 500" stroke="#dbeafe" strokeWidth="50" fill="none" opacity="0.7" />
+        <path 
+          d="M-100 400 Q 400 200 900 600 T 1540 500" 
+          stroke="#dbeafe" 
+          strokeWidth="50" 
+          fill="none" 
+          opacity="0.7"
+          vectorEffect="non-scaling-stroke"
+        />
       </svg>
     </Box>
   );
-}; 
+}); 

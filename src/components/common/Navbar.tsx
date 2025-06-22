@@ -4,7 +4,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, useMemo } from 'react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../logo/logo-erudit.png';
@@ -49,9 +49,10 @@ const styles = {
     alignItems: 'center',
     textDecoration: 'none',
     color: 'inherit',
-    transition: 'transform 0.2s ease',
+    transition: 'transform 0.2s ease, opacity 0.2s ease',
     '&:hover': {
-      transform: 'scale(1.05)',
+      transform: 'scale(0.95)',
+      opacity: 0.8,
     },
     gap: 1,
   },
@@ -210,7 +211,7 @@ const styles = {
   },
 };
 
-function HideOnScroll(props: HideOnScrollProps) {
+const HideOnScroll = React.memo(function HideOnScroll(props: HideOnScrollProps) {
   const { children } = props;
   const trigger = useScrollTrigger({
     threshold: 50,
@@ -221,7 +222,7 @@ function HideOnScroll(props: HideOnScrollProps) {
       {children}
     </Slide>
   );
-}
+});
 
 const menuItems = [
   {
@@ -298,6 +299,55 @@ const menuItems = [
   },
 ];
 
+const ContactInfo = React.memo(() => (
+  <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
+    <Box sx={styles.contactInfo}>
+      <Box sx={styles.phone}>
+        <PhoneIcon sx={{ fontSize: 18 }} />
+        <Box component="a" href="tel:+79001234567" sx={{ textDecoration: 'none', color: 'inherit' }}>
+          +7 (900) 123-45-67
+        </Box>
+      </Box>
+      <Box sx={styles.phone}>
+        <EmailIcon sx={{ fontSize: 18 }} />
+        <Box component="a" href="mailto:info@erudit.ru" sx={{ textDecoration: 'none', color: 'inherit' }}>
+          info@erudit.ru
+        </Box>
+      </Box>
+    </Box>
+    
+    <Box sx={styles.socialButtons}>
+      <IconButton
+        component="a"
+        href="https://t.me/erudit_edu"
+        target="_blank"
+        rel="noopener noreferrer"
+        sx={styles.socialButton}
+      >
+        <TelegramIcon />
+      </IconButton>
+      <IconButton
+        component="a"
+        href="https://wa.me/79001234567"
+        target="_blank"
+        rel="noopener noreferrer"
+        sx={styles.socialButton}
+      >
+        <WhatsAppIcon />
+      </IconButton>
+      <IconButton
+        component="a"
+        href="https://vk.com/erudit_edu"
+        target="_blank"
+        rel="noopener noreferrer"
+        sx={styles.socialButton}
+      >
+        <Box sx={{ fontSize: 20, fontWeight: 'bold', color: 'inherit' }}>VK</Box>
+      </IconButton>
+    </Box>
+  </Box>
+));
+
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -306,35 +356,34 @@ const Navbar = () => {
   const popperTimeout = useRef<number | undefined>(undefined);
   const [openCategories, setOpenCategories] = useState<{ [key: string]: boolean }>({});
 
-  const handleMobileToggle = () => setMobileOpen(!mobileOpen);
-  const handleMobileClose = () => setMobileOpen(false);
+  const handleMobileToggle = useCallback(() => setMobileOpen(prev => !prev), []);
+  const handleMobileClose = useCallback(() => setMobileOpen(false), []);
 
-  const handleOpenPopper = (event: React.MouseEvent<HTMLElement>, menu: string) => {
+  const handleOpenPopper = useCallback((event: React.MouseEvent<HTMLElement>, menu: string) => {
     clearTimeout(popperTimeout.current);
     setAnchorEl(event.currentTarget);
     setActiveMenu(menu);
-  };
+  }, []);
 
-  const handleClosePopper = () => {
+  const handleClosePopper = useCallback(() => {
     popperTimeout.current = window.setTimeout(() => {
       setAnchorEl(null);
       setActiveMenu(null);
     }, 200);
-  };
+  }, []);
 
-  const handleNavigate = (path?: string) => {
+  const handleNavigate = useCallback((path?: string) => {
     if (path) {
       navigate(path);
       handleMobileClose();
-      // Popper will be closed by the ClickAwayListener when navigation happens
     }
-  };
+  }, [navigate, handleMobileClose]);
 
-  const handleCategoryToggle = (cat: string) => {
+  const handleCategoryToggle = useCallback((cat: string) => {
     setOpenCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
-  };
+  }, []);
 
-  const renderDesktopMenu = () => (
+  const renderDesktopMenu = useMemo(() => (
     <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
       {menuItems.map((item) => (
         <Box
@@ -379,9 +428,9 @@ const Navbar = () => {
         </Box>
       ))}
     </Box>
-  );
+  ), [activeMenu, anchorEl, handleOpenPopper, handleClosePopper, handleNavigate]);
 
-  const renderMobileMenu = () => (
+  const renderMobileMenu = useMemo(() => (
     <Drawer
       variant="temporary"
       anchor="right"
@@ -415,7 +464,7 @@ const Navbar = () => {
         ))}
       </List>
     </Drawer>
-  );
+  ), [mobileOpen, openCategories, handleMobileToggle, handleCategoryToggle, handleNavigate]);
 
   return (
     <>
@@ -430,53 +479,7 @@ const Navbar = () => {
                 <Box component="img" src={logo} alt="Logo" sx={styles.logoImage} />
               </Box>
               
-              {/* Контактная информация - скрыта на мобильных */}
-              <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
-                <Box sx={styles.contactInfo}>
-                  <Box sx={styles.phone}>
-                    <PhoneIcon sx={{ fontSize: 18 }} />
-                    <Box component="a" href="tel:+79001234567" sx={{ textDecoration: 'none', color: 'inherit' }}>
-                      +7 (900) 123-45-67
-                    </Box>
-                  </Box>
-                  <Box sx={styles.phone}>
-                    <EmailIcon sx={{ fontSize: 18 }} />
-                    <Box component="a" href="mailto:info@erudit.ru" sx={{ textDecoration: 'none', color: 'inherit' }}>
-                      info@erudit.ru
-                    </Box>
-                  </Box>
-                </Box>
-                
-                <Box sx={styles.socialButtons}>
-                  <IconButton
-                    component="a"
-                    href="https://t.me/erudit_edu"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={styles.socialButton}
-                  >
-                    <TelegramIcon />
-                  </IconButton>
-                  <IconButton
-                    component="a"
-                    href="https://wa.me/79001234567"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={styles.socialButton}
-                  >
-                    <WhatsAppIcon />
-                  </IconButton>
-                  <IconButton
-                    component="a"
-                    href="https://vk.com/erudit_edu"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={styles.socialButton}
-                  >
-                    <Box sx={{ fontSize: 20, fontWeight: 'bold', color: 'inherit' }}>VK</Box>
-                  </IconButton>
-                </Box>
-              </Box>
+              <ContactInfo />
               
               <IconButton
                 color="inherit"
@@ -495,17 +498,17 @@ const Navbar = () => {
             <Container maxWidth="lg">
               <Box sx={{ ...styles.container, justifyContent: 'center' }}>
                 <Box sx={styles.menuContainer}>
-                  {renderDesktopMenu()}
+                  {renderDesktopMenu}
                 </Box>
               </Box>
             </Container>
           </Box>
         </HideOnScroll>
-        {renderMobileMenu()}
+        {renderMobileMenu}
       </Box>
       <Box sx={{ height: { xs: '48px', md: '64px' } }} />
     </>
   );
 };
 
-export default Navbar; 
+export default React.memo(Navbar); 
