@@ -12,6 +12,7 @@ import PricesSection from './components/sections/PricesSection';
 import ReviewsSection from './components/sections/ReviewsSection';
 import ContactSection from './components/sections/ContactSection';
 import WhyUsSection from './components/sections/WhyUsSection';
+import SummerCoursePage from './components/pages/SummerCoursePage';
 
 const HomePage = () => (
   <>
@@ -36,6 +37,7 @@ function App() {
             <Box component="main" sx={{ backgroundColor: 'transparent' }}>
               <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/summer" element={<SummerCoursePage />} />
                 <Route path="/:examType/:subject" element={<SubjectPage />} />
               </Routes>
             </Box>

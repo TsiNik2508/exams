@@ -23,7 +23,7 @@ const prices = [
   },
   {
     title: 'Летние курсы',
-    desc: 'Интенсивы',
+    desc: 'Курс 1 + X',
     price: '2500 руб/мес',
     icon: <WbSunnyIcon sx={{ color: '#1e7dbd', fontSize: 36 }} />, 
     badge: 'Выгодно',

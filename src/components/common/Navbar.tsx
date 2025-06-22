@@ -72,6 +72,8 @@ const styles = {
     display: 'flex',
     gap: 2,
     alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
   menuButton: {
     display: 'flex',
@@ -491,7 +493,7 @@ const Navbar = () => {
         <HideOnScroll>
           <Box sx={{ ...styles.mainBar, display: { xs: 'none', md: 'block' } }}>
             <Container maxWidth="lg">
-              <Box sx={styles.container}>
+              <Box sx={{ ...styles.container, justifyContent: 'center' }}>
                 <Box sx={styles.menuContainer}>
                   {renderDesktopMenu()}
                 </Box>

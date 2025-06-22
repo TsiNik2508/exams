@@ -58,7 +58,7 @@ const examTypeMapping: { [key: string]: string } = {
 
 const styles = {
   hero: {
-    background: 'linear-gradient(135deg, #1e7dbd 0%, #0d4a6b 100%)',
+    background: '#0d4a6b',
     color: 'white',
     pt: { xs: 10, md: 10 },
     pb: { xs: 3, md: 2 },
@@ -274,19 +274,19 @@ const SubjectPage = () => {
             <Box sx={{ flex: '1 1 55%', order: { xs: 2, md: 1 } }}>
               <AnimatedBlock>
                 <Box sx={styles.teacherCard}>
-                  <Typography variant="h3" gutterBottom sx={{ fontWeight: 700 }}>
+                  <Typography variant="h3" gutterBottom sx={{ fontWeight: 700, color: '#1e7dbd' }}>
                     О курсе и преподавателе
                   </Typography>
                   
                   <Box sx={{ my: 4 }}>
-                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>{teacher.name}</Typography>
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1, color: '#1e7dbd' }}>{teacher.name}</Typography>
                     <Typography variant="body1" color="text.secondary" paragraph sx={{ fontSize: '1.1rem' }}>
                       {teacher.experience} опыта • {teacher.description}
                     </Typography>
                   </Box>
 
                   <Box sx={{ my: 4, p: 3, background: '#f8fafc', borderRadius: '16px' }}>
-                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 2, color: '#1e7dbd' }}>
                       О программе курса
                     </Typography>
                     <Typography variant="body1" color="text.secondary" paragraph>
@@ -299,7 +299,7 @@ const SubjectPage = () => {
                   </Button>
 
                   <Box sx={{ mt: 5 }}>
-                    <Typography variant="h4" gutterBottom sx={{ fontWeight: 700 }}>
+                    <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: '#1e7dbd' }}>
                       Что вы получите
                     </Typography>
                     <Box sx={{ 
@@ -309,8 +309,8 @@ const SubjectPage = () => {
                       mt: 3
                     }}>
                       <Box sx={styles.statsCard}>
-                        <AccessTimeIcon sx={{ color: '#1e7dbd', fontSize: 40, mb: 1 }} />
-                        <Typography variant="h6" gutterBottom>
+                        <AccessTimeIcon sx={{ color: '#f2aa8d', fontSize: 40, mb: 1 }} />
+                        <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d' }}>
                           90 минут
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
@@ -318,8 +318,8 @@ const SubjectPage = () => {
                         </Typography>
                       </Box>
                       <Box sx={styles.statsCard}>
-                        <PersonIcon sx={{ color: '#1e7dbd', fontSize: 40, mb: 1 }} />
-                        <Typography variant="h6" gutterBottom>
+                        <PersonIcon sx={{ color: '#f2aa8d', fontSize: 40, mb: 1 }} />
+                        <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d' }}>
                           1-на-1
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
@@ -327,8 +327,8 @@ const SubjectPage = () => {
                         </Typography>
                       </Box>
                       <Box sx={styles.statsCard}>
-                        <AutoStoriesIcon sx={{ color: '#1e7dbd', fontSize: 40, mb: 1 }} />
-                        <Typography variant="h6" gutterBottom>
+                        <AutoStoriesIcon sx={{ color: '#f2aa8d', fontSize: 40, mb: 1 }} />
+                        <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d' }}>
                           Материалы
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
@@ -355,7 +355,7 @@ const SubjectPage = () => {
                 <AnimatedBlock delay={400}>
                   <Paper sx={styles.reviewCard}>
                     <FormatQuoteIcon sx={{ position: 'absolute', top: 16, right: 16, color: 'rgba(0,0,0,0.08)', fontSize: '3rem', transform: 'scaleX(-1)' }} />
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>Отзыв ученика</Typography>
+                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, color: '#1e7dbd' }}>Отзыв ученика</Typography>
                     <Typography variant="body1" sx={{ fontStyle: 'italic', my: 2, position: 'relative', zIndex: 1 }}>
                       "{teacher.review.text}"
                     </Typography>
@@ -381,7 +381,7 @@ const SubjectPage = () => {
       <Box sx={styles.priceSection}>
         <Container maxWidth="lg">
           <AnimatedBlock>
-            <Typography variant="h2" align="center" gutterBottom sx={{ mb: 6, fontWeight: 700 }}>
+            <Typography variant="h2" align="center" gutterBottom sx={{ mb: 6, fontWeight: 700, color: '#1e7dbd' }}>
               Стоимость обучения
             </Typography>
           </AnimatedBlock>
@@ -397,7 +397,7 @@ const SubjectPage = () => {
                 <Paper
                   sx={{...styles.priceCard, borderColor: index === 1 ? '#1e7dbd' : '#e2e8f0'}}
                 >
-                  <Typography variant="h5" gutterBottom fontWeight="bold">
+                  <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: '#f2aa8d' }}>
                     {option.title}
                   </Typography>
                   <Typography variant="h3" sx={{ my: 2, fontWeight: 'bold', color: '#1e7dbd' }}>
@@ -410,7 +410,7 @@ const SubjectPage = () => {
                     {option.features.map((feature) => (
                       <Box key={feature} sx={{ display: 'flex', alignItems: 'center', mb: 1, justifyContent: 'center' }}>
                         <CheckCircleIcon sx={{ mr: 1, color: '#1e7dbd' }} />
-                        <Typography variant="body2" color='text.primary'>
+                        <Typography variant="body2" color='text.secondary'>
                           {feature}
                         </Typography>
                       </Box>

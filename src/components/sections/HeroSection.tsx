@@ -188,12 +188,96 @@ const cardVariants = {
 const HeroSection: React.FC = () => {
   return (
     <Box sx={styles.container}>
+      {/* Стикеры в углах для десктопа */}
+      <Box sx={{ 
+        display: { xs: 'none', lg: 'flex' },
+        position: 'absolute', 
+        top: { lg: 160, xl: 140 },
+        left: '3%',
+        zIndex: 3,
+        width: { lg: 110, xl: 120 },
+        height: { lg: 110, xl: 120 },
+        borderRadius: '50%',
+        bgcolor: '#1e7dbd',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: '0 4px 20px rgba(30,125,189,0.2)',
+        transition: 'transform 0.3s ease',
+        '&:hover': { transform: 'scale(1.1)' }
+      }}>
+        <CardGiftcardIcon sx={{ 
+          position: 'absolute', 
+          fontSize: { lg: 50, xl: 60 }, 
+          color: '#fff', 
+          opacity: 0.3,
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)'
+        }} />
+        <Typography sx={{ 
+          color: '#fff',
+          fontWeight: 700,
+          fontSize: { lg: 10, xl: 11 },
+          textAlign: 'center',
+          lineHeight: 1.2,
+          px: 1,
+          position: 'relative',
+          zIndex: 2,
+          textShadow: '0 1px 3px rgba(0,0,0,0.3)'
+        }}>
+          Бесплатное пробное занятие
+        </Typography>
+      </Box>
+      
+      <Box sx={{ 
+        display: { xs: 'none', lg: 'flex' },
+        position: 'absolute', 
+        bottom: { lg: 160, xl: 140 },
+        right: '3%',
+        zIndex: 3,
+        width: { lg: 110, xl: 120 },
+        height: { lg: 110, xl: 120 },
+        borderRadius: '50%',
+        bgcolor: '#f2aa8d',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: '0 4px 20px rgba(242,170,141,0.2)',
+        transition: 'transform 0.3s ease',
+        '&:hover': { transform: 'scale(1.1)' }
+      }}>
+        <CardGiftcardIcon sx={{ 
+          position: 'absolute', 
+          fontSize: { lg: 50, xl: 60 }, 
+          color: '#fff', 
+          opacity: 0.3,
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)'
+        }} />
+        <Typography sx={{ 
+          color: '#fff',
+          fontWeight: 700,
+          fontSize: { lg: 10, xl: 11 },
+          textAlign: 'center',
+          lineHeight: 1.2,
+          px: 1,
+          position: 'relative',
+          zIndex: 2,
+          textShadow: '0 1px 3px rgba(0,0,0,0.3)'
+        }}>
+          Подарок за друга
+        </Typography>
+      </Box>
+
       <Container maxWidth="lg">
         <Box sx={styles.content}>
           <Typography variant="h1" sx={{ ...styles.title, mt: { xs: 4, md: 0 }, fontSize: { xs: 28, md: 36 } }}>
             Подготовка к <span style={styles.titleAccentOrange}>ЕГЭ</span> и <span style={styles.titleAccentOrange}>ОГЭ</span>
           </Typography>
-          {/* Стикеры для xs/sm в виде тонких плашек в одну строку */}
+          
+          {/* Стикеры для мобильной версии в виде плашек */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, flexDirection: 'row', gap: 2, mb: 3 }}>
             <Box sx={{ flex: 1, height: 60, borderRadius: '30px', bgcolor: '#1e7dbd', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', transition: 'transform 0.3s ease', '&:hover': { transform: 'translateY(-5px)' } }}>
               <CardGiftcardIcon sx={{ position: 'absolute', left: '50%', top: '50%', fontSize: 42, opacity: 0.13, color: '#fff', transform: 'translate(-50%, -50%)' }} />
@@ -208,6 +292,7 @@ const HeroSection: React.FC = () => {
               </Typography>
             </Box>
           </Box>
+          
           <Typography variant="h2" sx={styles.subtitle}>
             <span style={styles.subtitleAccent}>Индивидуальный подход</span>, <span style={styles.subtitleAccent}>мини-группы</span>, молодые преподаватели и реальные результаты.<br />
             Поможем сдать экзамены на <span style={styles.subtitleAccent}>80+ баллов</span> и поступить в вуз мечты!
