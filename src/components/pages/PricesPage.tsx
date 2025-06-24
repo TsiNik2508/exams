@@ -1,5 +1,4 @@
 import { Box, Container, Typography, Button } from '@mui/material';
-import React from 'react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined';
 
