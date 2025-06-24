@@ -376,6 +376,8 @@ const Navbar = () => {
     if (path) {
       navigate(path);
       handleMobileClose();
+      setAnchorEl(null);
+      setActiveMenu(null);
     }
   }, [navigate, handleMobileClose]);
 

@@ -56,6 +56,42 @@ const examTypeMapping: { [key: string]: string } = {
   middle: '5-8 класс',
 };
 
+// Функция для получения цен в зависимости от типа экзамена
+const getPricingByExamType = (examType: string) => {
+  switch (examType) {
+    case 'ЕГЭ':
+      return [
+        { title: 'Пробный урок', price: '0 ₽', description: 'Знакомство и определение уровня', features: ['Длительность 45 минут', 'Рекомендации по подготовке'], buttonText: 'Записаться' },
+        { title: 'Курс ЕГЭ', price: '5 400 ₽/мес', description: 'Полный курс подготовки', features: ['8 занятий в месяц', 'Проверка ДЗ', 'Пробные ЕГЭ'], buttonText: 'Выбрать' },
+        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Ускоренная программа', features: ['12 занятий в месяц', 'Личный чат с преподавателем'], buttonText: 'Выбрать' },
+      ];
+    case 'ОГЭ':
+      return [
+        { title: 'Пробный урок', price: '0 ₽', description: 'Знакомство и определение уровня', features: ['Длительность 45 минут', 'Рекомендации по подготовке'], buttonText: 'Записаться' },
+        { title: 'Курс ОГЭ', price: '5 400 ₽/мес', description: 'Полный курс подготовки', features: ['8 занятий в месяц', 'Проверка ДЗ'], buttonText: 'Выбрать' },
+        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Ускоренная программа', features: ['12 занятий в месяц', 'Личный чат с преподавателем'], buttonText: 'Выбрать' },
+      ];
+    case '5-8 класс':
+      return [
+        { title: 'Пробный урок', price: '0 ₽', description: 'Знакомство и определение уровня', features: ['Длительность 45 минут', 'Рекомендации по подготовке'], buttonText: 'Записаться' },
+        { title: 'Базовый курс', price: '5 400 ₽/мес', description: 'Основная программа', features: ['8 занятий в месяц', 'Проверка ДЗ'], buttonText: 'Выбрать' },
+        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Ускоренная программа', features: ['12 занятий в месяц', 'Личный чат с преподавателем'], buttonText: 'Выбрать' },
+      ];
+    case 'Онлайн курс':
+      return [
+        { title: 'Пробный урок', price: '0 ₽', description: 'Знакомство и определение уровня', features: ['Длительность 45 минут', 'Рекомендации по подготовке'], buttonText: 'Записаться' },
+        { title: 'Онлайн курс', price: '5 400 ₽/мес', description: 'Полная онлайн подготовка', features: ['8 занятий в месяц', 'Проверка ДЗ', 'Онлайн материалы'], buttonText: 'Выбрать' },
+        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Ускоренная программа', features: ['12 занятий в месяц', 'Личный чат с преподавателем'], buttonText: 'Выбрать' },
+      ];
+    default:
+      return [
+        { title: 'Пробный урок', price: '0 ₽', description: 'Знакомство и определение уровня', features: ['Длительность 45 минут', 'Рекомендации по подготовке'], buttonText: 'Записаться' },
+        { title: 'Базовый курс', price: '5 400 ₽/мес', description: 'Полный курс подготовки', features: ['8 занятий в месяц', 'Проверка ДЗ'], buttonText: 'Выбрать' },
+        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Ускоренная программа', features: ['12 занятий в месяц', 'Личный чат с преподавателем'], buttonText: 'Выбрать' },
+      ];
+  }
+};
+
 const styles = {
   hero: {
     background: '#0d4a6b',
@@ -392,7 +428,7 @@ const SubjectPage = () => {
               gap: 4,
             }}
           >
-            {teacher.pricing.map((option, index) => (
+            {getPricingByExamType(targetExamType).map((option, index) => (
               <AnimatedBlock key={option.title} delay={index * 150}>
                 <Paper
                   sx={{...styles.priceCard, borderColor: index === 1 ? '#1e7dbd' : '#e2e8f0'}}
@@ -400,7 +436,7 @@ const SubjectPage = () => {
                   <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: '#f2aa8d' }}>
                     {option.title}
                   </Typography>
-                  <Typography variant="h3" sx={{ my: 2, fontWeight: 'bold', color: '#1e7dbd' }}>
+                  <Typography variant="h4" sx={{ my: 2, fontWeight: 'bold', color: '#1e7dbd' }}>
                     {option.price}
                   </Typography>
                   <Typography variant="body1" color='text.secondary' sx={{ mb: 3, flexGrow: 1 }}>
