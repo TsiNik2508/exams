@@ -10,6 +10,8 @@ import React, { Suspense, lazy } from 'react';
 // Ленивая загрузка страниц для улучшения производительности
 const SubjectPage = lazy(() => import('./components/pages/SubjectPage'));
 const SummerCoursePage = lazy(() => import('./components/pages/SummerCoursePage'));
+const FAQPage = lazy(() => import('./components/pages/FAQPage'));
+const PricesPage = lazy(() => import('./components/pages/PricesPage'));
 const HeroSection = lazy(() => import('./components/sections/HeroSection'));
 const BenefitsSection = lazy(() => import('./components/sections/BenefitsSection'));
 const PricesSection = lazy(() => import('./components/sections/PricesSection'));
@@ -58,6 +60,8 @@ function App() {
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/summer" element={<SummerCoursePage />} />
+                  <Route path="/faq" element={<FAQPage />} />
+                  <Route path="/prices" element={<PricesPage />} />
                   <Route path="/:examType/:subject" element={<SubjectPage />} />
                 </Routes>
               </Suspense>

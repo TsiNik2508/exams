@@ -1,16 +1,20 @@
 import { memo, lazy, Suspense } from 'react';
 import { Box, Container, Typography, IconButton, Link, Skeleton } from '@mui/material';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import { Facebook } from '@mui/icons-material';
+import EmailIcon from '@mui/icons-material/Email';
 
 // Ленивая загрузка логотипа
 const Logo = lazy(() => import('./Logo'));
 
 const socialLinks = [
-  { icon: <WhatsAppIcon />, href: 'https://wa.me/your_number' },
-  { icon: <TelegramIcon />, href: 'https://t.me/your_username' },
-  { icon: <Facebook />, href: 'https://vk.com/your_group' },
+  { icon: <TelegramIcon />, href: 'https://t.me/erudite_school_ru' },
+  { icon: <EmailIcon />, href: 'mailto:erudite_edu@mail.ru' },
+];
+
+const contactLinks = [
+  { text: 'VK', href: 'https://vk.com/club229911521' },
+  { text: 'Telegram', href: 'https://t.me/erudite_school_ru' },
+  { text: 'Email', href: 'mailto:erudite_edu@mail.ru' },
 ];
 
 const footerLinks = [
@@ -119,6 +123,21 @@ const Footer = memo(() => (
             <Link
               key={link.text}
               href={link.href}
+              underline="hover"
+              sx={styles.link}
+            >
+              {link.text}
+            </Link>
+          ))}
+        </Box>
+
+        <Box sx={styles.linksContainer}>
+          {contactLinks.map((link) => (
+            <Link
+              key={link.text}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
               underline="hover"
               sx={styles.link}
             >

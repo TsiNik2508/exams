@@ -26,7 +26,7 @@ const styles = {
   },
   heroTitle: {
     fontWeight: 700,
-    color: '#1e293b',
+    color: '#1e7dbd',
   },
   section: {
     mb: { xs: 8, md: 10 },
@@ -270,7 +270,7 @@ const SummerCoursePage = () => {
 
         <AnimateOnScroll delay={500}>
             <Box sx={styles.priceSection}>
-            <Typography variant="h3" component="h2" sx={{ fontWeight: 700, color: '#1e293b' }}>
+            <Typography variant="h3" component="h2" sx={{ fontWeight: 700, color: '#1e7dbd' }}>
                 Тариф
             </Typography>
             <Box sx={styles.priceTextWrapper}>

@@ -1,9 +1,7 @@
 import { Box, Container, IconButton, Drawer, List, ListItem, ListItemText, Slide, useScrollTrigger, Popper, Paper, Grow, ClickAwayListener, Collapse, ListItemButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { useState, useRef, useCallback, useMemo } from 'react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -300,26 +298,20 @@ const menuItems = [
 ];
 
 const ContactInfo = React.memo(() => (
-  <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
-    <Box sx={styles.contactInfo}>
-      <Box sx={styles.phone}>
-        <PhoneIcon sx={{ fontSize: 18 }} />
-        <Box component="a" href="tel:+79001234567" sx={{ textDecoration: 'none', color: 'inherit' }}>
-          +7 (900) 123-45-67
-        </Box>
-      </Box>
-      <Box sx={styles.phone}>
-        <EmailIcon sx={{ fontSize: 18 }} />
-        <Box component="a" href="mailto:info@erudit.ru" sx={{ textDecoration: 'none', color: 'inherit' }}>
-          info@erudit.ru
-        </Box>
-      </Box>
+  <Box sx={styles.contactInfo}>
+    <Box
+      component="a"
+      href="mailto:erudite_edu@mail.ru"
+      sx={styles.phone}
+    >
+      <EmailIcon fontSize="small" />
+      erudite_edu@mail.ru
     </Box>
     
     <Box sx={styles.socialButtons}>
       <IconButton
         component="a"
-        href="https://t.me/erudit_edu"
+        href="https://t.me/erudite_school_ru"
         target="_blank"
         rel="noopener noreferrer"
         sx={styles.socialButton}
@@ -328,16 +320,7 @@ const ContactInfo = React.memo(() => (
       </IconButton>
       <IconButton
         component="a"
-        href="https://wa.me/79001234567"
-        target="_blank"
-        rel="noopener noreferrer"
-        sx={styles.socialButton}
-      >
-        <WhatsAppIcon />
-      </IconButton>
-      <IconButton
-        component="a"
-        href="https://vk.com/erudit_edu"
+        href="https://vk.com/club229911521"
         target="_blank"
         rel="noopener noreferrer"
         sx={styles.socialButton}
