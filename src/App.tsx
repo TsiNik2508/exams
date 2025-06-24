@@ -46,7 +46,7 @@ const HomePage = React.memo(() => (
 
 function App() {
   return (
-    <Router basename="/exams">
+    <Router>
       <ThemeProvider theme={theme}>
         <Box sx={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
           <Background />
