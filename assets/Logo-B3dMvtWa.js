@@ -1,1 +1,0 @@
-import{j as o,B as t}from"./mui-CSwLG1Oz.js";import{l as s}from"./index-DZF_6wHL.js";import"./vendor-BI3NJeJA.js";import"./router-Bffrhe9D.js";const r={logo:{height:44,width:"auto"}},i=()=>o.jsx(t,{component:"img",src:s,alt:"Эрудит",sx:r.logo,loading:"lazy"});export{i as default};
