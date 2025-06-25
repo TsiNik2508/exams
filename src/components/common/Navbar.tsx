@@ -1,5 +1,6 @@
 import { Box, Container, IconButton, Drawer, List, ListItem, ListItemText, Slide, useScrollTrigger, Popper, Paper, Grow, ClickAwayListener, Collapse, ListItemButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import EmailIcon from '@mui/icons-material/Email';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import { useState, useRef, useCallback, useMemo } from 'react';
@@ -55,17 +56,17 @@ const styles = {
     gap: 1,
   },
   logoImage: {
-    height: { xs: '36px', md: '50px' },
+    height: { xs: '32px', sm: '36px', md: '50px' },
     width: 'auto',
     objectFit: 'contain',
   },
   logoText: {
     fontWeight: 700,
-    fontSize: { xs: 24, md: 32 },
+    fontSize: { xs: 20, sm: 24, md: 32 },
     color: '#f2aa8d',
     lineHeight: 1,
     ml: 1,
-    display: { xs: 'block', md: 'block' },
+    display: { xs: 'none', sm: 'block', md: 'block' },
   },
   menuContainer: {
     display: 'flex',
@@ -127,7 +128,7 @@ const styles = {
     },
   },
   contactInfo: {
-    display: 'flex',
+    display: { xs: 'none', md: 'flex' },
     alignItems: 'center',
     gap: 2,
   },
@@ -165,17 +166,19 @@ const styles = {
   drawer: {
     display: { xs: 'block', md: 'none' },
     '& .MuiDrawer-paper': {
-      width: 280,
+      width: { xs: '100%', sm: 320 },
       bgcolor: '#fff',
       boxShadow: '0 4px 24px rgba(30,125,189,0.15)',
     },
   },
   drawerHeader: {
-    p: 2,
+    p: { xs: 2, sm: 3 },
     borderBottom: '1px solid rgba(30,125,189,0.1)',
     display: 'flex',
-    flexDirection: 'column',
-    gap: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    bgcolor: '#f8fafc',
   },
   drawerLogo: {
     maxWidth: 120,
@@ -184,26 +187,51 @@ const styles = {
     display: 'block',
     margin: '0 auto',
   },
+  drawerContactInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 1,
+    alignItems: 'center',
+  },
+  drawerContactItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 1,
+    color: '#1e7dbd',
+    textDecoration: 'none',
+    fontWeight: 500,
+    fontSize: '0.9rem',
+  },
+  drawerCloseButton: {
+    color: '#1e7dbd',
+    '&:hover': {
+      bgcolor: 'rgba(30,125,189,0.1)',
+    }
+  },
   drawerList: {
     pt: 2,
+    pb: 4,
   },
   drawerItem: {
-    py: 1.5,
+    py: 2,
     px: 3,
     color: '#1e293b',
     fontWeight: 500,
+    fontSize: '1rem',
+    borderBottom: '1px solid rgba(30,125,189,0.05)',
     '&:hover': {
       bgcolor: 'rgba(30,125,189,0.05)',
       color: '#1e7dbd',
     }
   },
   drawerSubItem: {
-    pl: 6,
-    py: 1,
+    pl: 4,
+    py: 1.5,
     fontSize: '0.9rem',
     color: '#64748b',
+    borderBottom: '1px solid rgba(30,125,189,0.03)',
     '&:hover': {
-      bgcolor: 'rgba(30,125,189,0.05)',
+      bgcolor: 'rgba(30,125,189,0.03)',
       color: '#1e7dbd',
     }
   },
@@ -424,18 +452,53 @@ const Navbar = () => {
       ModalProps={{ keepMounted: true }}
       sx={styles.drawer}
     >
-    <Box sx={styles.drawerHeader}>
-        {/* ... logo, contacts ... */}
+      <Box sx={styles.drawerHeader}>
+        <Box sx={styles.drawerContactInfo}>
+          <IconButton
+            component="a"
+            href="mailto:erudite_edu@mail.ru"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={styles.socialButton}
+          >
+            <EmailIcon />
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://t.me/erudite_school_ru"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={styles.socialButton}
+          >
+            <TelegramIcon />
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://vk.com/club229911521"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={styles.socialButton}
+          >
+            <Box sx={{ fontSize: 18, fontWeight: 'bold', color: 'inherit' }}>VK</Box>
+          </IconButton>
+        </Box>
+        
+        <IconButton
+          onClick={handleMobileToggle}
+          sx={styles.drawerCloseButton}
+        >
+          <CloseIcon />
+        </IconButton>
       </Box>
       <List sx={styles.drawerList}>
         {menuItems.map((item) => (
           <React.Fragment key={item.text}>
             <ListItem sx={styles.drawerItem} onClick={() => item.submenu ? handleCategoryToggle(item.text) : handleNavigate(item.href)}>
-                  <ListItemText primary={item.text} />
+              <ListItemText primary={item.text} />
               {item.submenu && (openCategories[item.text] ? <ExpandMoreIcon /> : <ChevronRightIcon />)}
             </ListItem>
             {item.submenu && (
-                <Collapse in={openCategories[item.text]} timeout="auto" unmountOnExit>
+              <Collapse in={openCategories[item.text]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   {item.submenu.map((subItem) => (
                     <ListItemButton key={subItem.text} sx={styles.drawerSubItem} onClick={() => handleNavigate(subItem.href)}>
@@ -443,7 +506,7 @@ const Navbar = () => {
                     </ListItemButton>
                   ))}
                 </List>
-                </Collapse>
+              </Collapse>
             )}
           </React.Fragment>
         ))}

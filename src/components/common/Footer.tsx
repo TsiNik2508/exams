@@ -1,28 +1,13 @@
 import { memo, lazy, Suspense } from 'react';
-import { Box, Container, Typography, IconButton, Link, Skeleton } from '@mui/material';
-import TelegramIcon from '@mui/icons-material/Telegram';
-import EmailIcon from '@mui/icons-material/Email';
+import { Box, Container, Typography, Link, Skeleton } from '@mui/material';
 
 // Ленивая загрузка логотипа
 const Logo = lazy(() => import('./Logo'));
-
-const socialLinks = [
-  { icon: <TelegramIcon />, href: 'https://t.me/erudite_school_ru' },
-  { icon: <EmailIcon />, href: 'mailto:erudite_edu@mail.ru' },
-];
 
 const contactLinks = [
   { text: 'VK', href: 'https://vk.com/club229911521' },
   { text: 'Telegram', href: 'https://t.me/erudite_school_ru' },
   { text: 'Email', href: 'mailto:erudite_edu@mail.ru' },
-];
-
-const footerLinks = [
-  { text: 'Курсы ЕГЭ', href: '/ege' },
-  { text: 'Курсы ОГЭ', href: '/oge' },
-  { text: '5-8 класс', href: '/middle-school' },
-  { text: '1-4 класс', href: '/elementary-school' },
-  { text: 'Цены', href: '/prices' },
 ];
 
 const styles = {
@@ -55,17 +40,6 @@ const styles = {
     maxWidth: 500,
     color: '#cbd5e1',
     mb: 2,
-  },
-  socialContainer: {
-    display: 'flex',
-    gap: 1,
-    mb: 2,
-  },
-  socialButton: {
-    color: '#1e7dbd',
-    '&:hover': {
-      color: '#f2aa8d',
-    },
   },
   linksContainer: {
     display: 'flex',
@@ -104,32 +78,6 @@ const Footer = memo(() => (
         <Typography variant="body2" align="center" sx={styles.description}>
           Мы помогаем школьникам достичь высоких результатов в учебе и успешно сдать экзамены. Наши опытные преподаватели используют современные методики обучения.
         </Typography>
-
-        <Box sx={styles.socialContainer}>
-          {socialLinks.map((link, index) => (
-            <IconButton
-              key={index}
-              href={link.href}
-              target="_blank"
-              sx={styles.socialButton}
-            >
-              {link.icon}
-            </IconButton>
-          ))}
-        </Box>
-
-        <Box sx={styles.linksContainer}>
-          {footerLinks.map((link) => (
-            <Link
-              key={link.text}
-              href={link.href}
-              underline="hover"
-              sx={styles.link}
-            >
-              {link.text}
-            </Link>
-          ))}
-        </Box>
 
         <Box sx={styles.linksContainer}>
           {contactLinks.map((link) => (

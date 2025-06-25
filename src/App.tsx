@@ -57,13 +57,13 @@ function App() {
             <Navbar />
             <Box component="main" sx={{ backgroundColor: 'transparent' }}>
               <Suspense fallback={<LoadingFallback />}>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/summer" element={<SummerCoursePage />} />
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/summer" element={<SummerCoursePage />} />
                   <Route path="/faq" element={<FAQPage />} />
                   <Route path="/prices" element={<PricesPage />} />
-                  <Route path="/:examType/:subject" element={<SubjectPage />} />
-                </Routes>
+                <Route path="/:examType/:subject" element={<SubjectPage />} />
+              </Routes>
               </Suspense>
             </Box>
             <Footer />
