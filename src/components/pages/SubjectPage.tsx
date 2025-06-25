@@ -1,13 +1,13 @@
 import { Box, Container, Typography, Button, Paper, Grow } from '@mui/material';
 import { useParams, Link } from 'react-router-dom';
 import { teachers } from '../../data/teachers';
-import StarIcon from '@mui/icons-material/Star';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PersonIcon from '@mui/icons-material/Person';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import { useInView } from 'react-intersection-observer';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 // Import teacher images
 import annaImg from '../../assets/teachers/anna.jpg';
@@ -21,6 +21,15 @@ import airatImg from '../../assets/teachers/airat.jpg';
 import dariaRusImg from '../../assets/teachers/daria-rus.jpg';
 import dmitryiImg from '../../assets/teachers/dmitryi.jpg';
 
+// Import review videos
+import mathVideo from '../../assets/reviews/math.mp4';
+import socialVideo from '../../assets/reviews/social.mp4';
+import englishVideo from '../../assets/reviews/english.mp4';
+import physicsVideo from '../../assets/reviews/phisics.mp4';
+import historyVideo from '../../assets/reviews/history.mp4';
+import informVideo from '../../assets/reviews/inform.mp4';
+import biologyVideo from '../../assets/reviews/biology.mp4';
+
 // Map teacher names to their local images
 const teacherImages: { [key: string]: string } = {
   'Анна Гавриленко': annaImg,
@@ -33,6 +42,20 @@ const teacherImages: { [key: string]: string } = {
   'Айрат Габараев': airatImg,
   'Дарья Солоненко': dariaRusImg,
   'Дмитрий Гусар': dmitryiImg,
+};
+
+// Map subjects to review videos
+const reviewVideos: { [key: string]: string } = {
+  'Математика': mathVideo,
+  'Обществознание': socialVideo,
+  'Английский язык': englishVideo,
+  'Физика': physicsVideo,
+  'История': historyVideo,
+  'Информатика': informVideo,
+  'Биология': biologyVideo,
+  'Химия': biologyVideo, // Используем видео по биологии для химии
+  'Русский язык': mathVideo, // Используем видео по математике для русского
+  'Литература': mathVideo, // Используем видео по математике для литературы
 };
 
 // Маппинг URL-параметров на названия предметов
@@ -132,10 +155,90 @@ const styles = {
   },
   teacherImage: {
     width: '100%',
-    height: { xs: 350, sm: 450, md: 550 },
+    height: { xs: 'auto', md: 350, lg: 450, xl: 550 },
     objectFit: 'cover' as const,
     borderRadius: '24px',
     boxShadow: '0 8px 24px rgba(30,125,189,0.1)',
+    position: 'relative',
+  },
+  videoCircle: {
+    position: 'absolute',
+    bottom: 40,
+    left: 20,
+    width: 120,
+    height: 120,
+    borderRadius: '50%',
+    overflow: 'hidden',
+    cursor: 'pointer',
+    transition: 'all 1.5s cubic-bezier(0.25, 0.8, 0.25, 1)',
+    boxShadow: '0 4px 16px rgba(30,125,189,0.3)',
+    zIndex: 2,
+    border: '3px solid #fff',
+    '&:hover': {
+      transform: 'scale(1.8)',
+      boxShadow: '0 12px 32px rgba(30,125,189,0.6)',
+      cursor: 'none',
+      '&::after': {
+        content: '""',
+        position: 'fixed',
+        top: 'var(--mouse-y, 50%)',
+        left: 'var(--mouse-x, 50%)',
+        width: '20px',
+        height: '20px',
+        borderRadius: '50%',
+        background: 'rgba(128, 128, 128, 0.6)',
+        pointerEvents: 'none',
+        zIndex: 9999,
+        transform: 'translate(-50%, -50%)',
+      },
+    },
+    '& video': {
+      transition: 'all 0.3s ease',
+    },
+  },
+  videoLabel: {
+    position: 'absolute',
+    bottom: -45,
+    left: 20,
+    background: 'rgba(30,125,189,0.9)',
+    color: '#fff',
+    fontSize: '0.9rem',
+    fontWeight: 600,
+    padding: '6px 12px',
+    borderRadius: '16px',
+    whiteSpace: 'nowrap',
+    zIndex: 2,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 1,
+    transition: 'all 0.3s ease',
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: -10,
+      left: 20,
+      width: 0,
+      height: 0,
+      borderLeft: '10px solid transparent',
+      borderRight: '10px solid transparent',
+      borderBottom: '10px solid rgba(30,125,189,0.9)',
+    },
+  },
+  videoPreview: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
+  '@keyframes pulse': {
+    '0%': {
+      transform: 'scale(1)',
+    },
+    '50%': {
+      transform: 'scale(1.05)',
+    },
+    '100%': {
+      transform: 'scale(1)',
+    },
   },
   reviewCard: {
     background: 'white',
@@ -220,7 +323,11 @@ const AnimatedBlock = ({ children, delay = 0 }: { children: React.ReactElement, 
 const SubjectPage = () => {
   const { examType = 'ege', subject = '' } = useParams();
   const subjectName = subjectMapping[subject] || 'Предмет';
-  const targetExamType = examTypeMapping[examType]; // Map URL param to data value
+  const targetExamType = examTypeMapping[examType];
+  const [isHovering, setIsHovering] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [showMobileVideo, setShowMobileVideo] = useState(false);
+  const videoMobileRef = useRef<HTMLVideoElement>(null);
 
   // 1. Filter teachers by subject
   const subjectTeachers = teachers.filter(t => t.subject.split(' и ').includes(subjectName));
@@ -261,6 +368,58 @@ const SubjectPage = () => {
   }
 
   const teacherImage = teacher ? teacherImages[teacher.name] : '';
+  const reviewVideo = reviewVideos[subjectName];
+
+  // Управляем воспроизведением видео при изменении состояния наведения
+  useEffect(() => {
+    if (videoRef.current && reviewVideo) {
+      if (isHovering) {
+        videoRef.current.muted = false; // Включаем звук
+        videoRef.current.play().catch(() => {
+          // Игнорируем ошибки автовоспроизведения
+        });
+      } else {
+        videoRef.current.muted = true; // Выключаем звук
+        videoRef.current.pause();
+        // Убираем сброс к началу - видео останется на том же месте
+      }
+    }
+  }, [isHovering, reviewVideo]);
+
+  const handleMouseEnter = useCallback(() => {
+    setIsHovering(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovering(false);
+  }, []);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (isHovering) {
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    }
+  }, [isHovering]);
+
+  const handleMobileCircleClick = () => {
+    if (showMobileVideo) {
+      setShowMobileVideo(false);
+      if (videoMobileRef.current) {
+        videoMobileRef.current.pause();
+      }
+    } else {
+      setShowMobileVideo(true);
+      setTimeout(() => {
+        if (videoMobileRef.current) {
+          videoMobileRef.current.play();
+        }
+      }, 0);
+    }
+  };
+
+  const handleMobileVideoEnded = () => {
+    setShowMobileVideo(false);
+  };
 
   // Show a message if no teacher is found
   if (!teacher) {
@@ -310,7 +469,15 @@ const SubjectPage = () => {
             <Box sx={{ flex: '1 1 55%', order: { xs: 2, md: 1 } }}>
               <AnimatedBlock>
                 <Box sx={styles.teacherCard}>
-                  <Typography variant="h3" gutterBottom sx={{ fontWeight: 700, color: '#1e7dbd' }}>
+                  <Typography
+                    variant="h4"
+                    gutterBottom
+                    sx={{
+                      fontWeight: 700,
+                      color: '#1e7dbd',
+                      mt: { xs: 7, md: 0 }
+                    }}
+                  >
                     О курсе и преподавателе
                   </Typography>
                   
@@ -380,34 +547,136 @@ const SubjectPage = () => {
             {/* RIGHT COLUMN */}
             <Box sx={{ flex: '1 1 45%', order: { xs: 1, md: 2 }, display: 'flex', flexDirection: 'column', gap: 4 }}>
               <AnimatedBlock delay={200}>
+                <Box sx={{ position: 'relative' }}>
                 <Box
                   component="img"
                   src={teacherImage}
                   alt={teacher.name}
                   sx={styles.teacherImage}
                 />
-              </AnimatedBlock>
-              {teacher.review && (
-                <AnimatedBlock delay={400}>
-                  <Paper sx={styles.reviewCard}>
-                    <FormatQuoteIcon sx={{ position: 'absolute', top: 16, right: 16, color: 'rgba(0,0,0,0.08)', fontSize: '3rem', transform: 'scaleX(-1)' }} />
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, color: '#1e7dbd' }}>Отзыв ученика</Typography>
-                    <Typography variant="body1" sx={{ fontStyle: 'italic', my: 2, position: 'relative', zIndex: 1 }}>
-                      "{teacher.review.text}"
-                    </Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                        - {teacher.review.author}
-                      </Typography>
-                      <Box sx={{ display: 'flex', gap: 0.5 }}>
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <StarIcon key={star} sx={{ color: '#f2aa8d', fontSize: '1.2rem' }} />
-                        ))}
+                  {reviewVideo && (
+                    <>
+                      {/* Мобильная версия видео-кружка (только на экранах < 600px) */}
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          bottom: 10,
+                          left: 0,
+                          width: 120,
+                          height: 120,
+                          borderRadius: '50%',
+                          overflow: 'hidden',
+                          zIndex: 2,
+                          border: '3px solid #fff',
+                          background: '#000',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          '@media (min-width: 600px)': {
+                            display: 'none', // Скрываем на десктопе
+                          },
+                        }}
+                        onClick={handleMobileCircleClick}
+                      >
+                        <video
+                          key={subjectName}
+                          ref={videoMobileRef}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            display: 'block',
+                            filter: !showMobileVideo ? 'brightness(0.5)' : 'none',
+                            pointerEvents: 'none',
+                          }}
+                          controls={showMobileVideo}
+                          autoPlay={showMobileVideo}
+                          muted={!showMobileVideo}
+                          playsInline
+                          preload="metadata"
+                          controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+                          disablePictureInPicture
+                          disableRemotePlayback
+                          onEnded={handleMobileVideoEnded}
+                        >
+                          <source src={reviewVideo} type="video/mp4" />
+                        </video>
+                        {!showMobileVideo && (
+                          <PlayArrowIcon sx={{
+                            color: '#fff',
+                            fontSize: 56,
+                            position: 'absolute',
+                            left: '50%',
+                            top: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            zIndex: 3
+                          }} />
+                        )}
                       </Box>
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          left: 0,
+                          bottom: -50,
+                          background: 'rgba(30,125,189,0.9)',
+                          color: '#fff',
+                          fontSize: '0.85rem',
+                          fontWeight: 600,
+                          padding: '4px 10px',
+                          borderRadius: '14px',
+                          whiteSpace: 'nowrap',
+                          zIndex: 2,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          boxShadow: '0 2px 8px rgba(30,125,189,0.15)',
+                          '@media (min-width: 600px)': {
+                            display: 'none', // Скрываем на десктопе
+                          },
+                        }}
+                      >
+                        Видео отзыв
+                      </Box>
+                      
+                      {/* Десктопная версия видео-кружка (только на экранах >= 600px) */}
+                      <Box
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        onMouseMove={handleMouseMove}
+                        sx={{
+                          ...styles.videoCircle,
+                          '@media (max-width: 599px)': {
+                            display: 'none', // Скрываем на мобильных
+                          },
+                        }}
+                      >
+                        <video
+                          key={subjectName}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          muted
+                          loop
+                          ref={videoRef}
+                          controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+                          disablePictureInPicture
+                          disableRemotePlayback
+                        >
+                          <source src={reviewVideo} type="video/mp4" />
+                        </video>
+                      </Box>
+                      
+                      {/* Подпись "Видео отзыв" для десктопа (только на экранах >= 600px) */}
+                      <Typography sx={{
+                        ...styles.videoLabel,
+                        '@media (max-width: 599px)': {
+                          display: 'none', // Скрываем на мобильных
+                        },
+                      }}>
+                        Видео отзыв
+                      </Typography>
+                    </>
+                  )}
                     </Box>
-                  </Paper>
                 </AnimatedBlock>
-              )}
             </Box>
           </Box>
         </Container>

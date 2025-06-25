@@ -452,7 +452,7 @@ const Navbar = () => {
       ModalProps={{ keepMounted: true }}
       sx={styles.drawer}
     >
-      <Box sx={styles.drawerHeader}>
+    <Box sx={styles.drawerHeader}>
         <Box sx={styles.drawerContactInfo}>
           <IconButton
             component="a"
@@ -494,11 +494,11 @@ const Navbar = () => {
         {menuItems.map((item) => (
           <React.Fragment key={item.text}>
             <ListItem sx={styles.drawerItem} onClick={() => item.submenu ? handleCategoryToggle(item.text) : handleNavigate(item.href)}>
-              <ListItemText primary={item.text} />
+                  <ListItemText primary={item.text} />
               {item.submenu && (openCategories[item.text] ? <ExpandMoreIcon /> : <ChevronRightIcon />)}
             </ListItem>
             {item.submenu && (
-              <Collapse in={openCategories[item.text]} timeout="auto" unmountOnExit>
+                <Collapse in={openCategories[item.text]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   {item.submenu.map((subItem) => (
                     <ListItemButton key={subItem.text} sx={styles.drawerSubItem} onClick={() => handleNavigate(subItem.href)}>
@@ -506,7 +506,7 @@ const Navbar = () => {
                     </ListItemButton>
                   ))}
                 </List>
-              </Collapse>
+                </Collapse>
             )}
           </React.Fragment>
         ))}
