@@ -2,9 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme/index';
-import { Navbar, Footer } from './components/common';
+import { Navbar, Footer, ScrollToTop, SocialFloatingMenu } from './components/common';
 import { Background } from './components/ui';
-import ScrollToTop from './components/common/ScrollToTop';
 import React, { Suspense, lazy } from 'react';
 
 // Ленивая загрузка страниц для улучшения производительности
@@ -53,6 +52,7 @@ function App() {
         <Box sx={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
           <Background />
           <Box sx={{ position: 'relative', zIndex: 1, backgroundColor: 'transparent' }}>
+            <SocialFloatingMenu />
             <ScrollToTop />
             <Navbar />
             <Box component="main" sx={{ backgroundColor: 'transparent' }}>

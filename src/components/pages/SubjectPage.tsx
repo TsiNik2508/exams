@@ -29,6 +29,8 @@ import physicsVideo from '../../assets/reviews/phisics.mp4';
 import historyVideo from '../../assets/reviews/history.mp4';
 import informVideo from '../../assets/reviews/inform.mp4';
 import biologyVideo from '../../assets/reviews/biology.mp4';
+import rusVideo from '../../assets/reviews/rus.mp4';
+import ogeMathVideo from '../../assets/reviews/oge-math.mp4';
 
 // Map teacher names to their local images
 const teacherImages: { [key: string]: string } = {
@@ -54,7 +56,7 @@ const reviewVideos: { [key: string]: string } = {
   'Информатика': informVideo,
   'Биология': biologyVideo,
   'Химия': biologyVideo, // Используем видео по биологии для химии
-  'Русский язык': mathVideo, // Используем видео по математике для русского
+  'Русский язык': rusVideo,
   'Литература': mathVideo, // Используем видео по математике для литературы
 };
 
@@ -368,7 +370,12 @@ const SubjectPage = () => {
   }
 
   const teacherImage = teacher ? teacherImages[teacher.name] : '';
-  const reviewVideo = reviewVideos[subjectName];
+  
+  // Определяем видео отзыв с учетом типа экзамена
+  let reviewVideo = reviewVideos[subjectName];
+  if (subjectName === 'Математика' && targetExamType === 'ОГЭ') {
+    reviewVideo = ogeMathVideo;
+  }
 
   // Управляем воспроизведением видео при изменении состояния наведения
   useEffect(() => {
