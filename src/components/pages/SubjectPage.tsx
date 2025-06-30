@@ -8,6 +8,7 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import { useInView } from 'react-intersection-observer';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 // Import teacher images
 import annaImg from '../../assets/teachers/anna.jpg';
@@ -57,7 +58,7 @@ const reviewVideos: { [key: string]: string } = {
   'Биология': biologyVideo,
   'Химия': biologyVideo, // Используем видео по биологии для химии
   'Русский язык': rusVideo,
-  'Литература': mathVideo, // Используем видео по математике для литературы
+  'Литература': rusVideo, // Используем видео по математике для литературы
 };
 
 // Маппинг URL-параметров на названия предметов
@@ -86,33 +87,33 @@ const getPricingByExamType = (examType: string) => {
   switch (examType) {
     case 'ЕГЭ':
       return [
+        { title: 'Группы до 8 человек', price: '4 200 ₽/мес', description: 'Эффективная групповая подготовка', features: ['8 занятий в месяц', 'Проверка ДЗ', 'Пробные ЕГЭ', 'Групповое взаимодействие'], buttonText: 'Выбрать' },
         { title: 'Пробный урок', price: '0 ₽', description: 'Знакомство и определение уровня', features: ['Длительность 45 минут', 'Рекомендации по подготовке'], buttonText: 'Записаться' },
-        { title: 'Курс ЕГЭ', price: '5 400 ₽/мес', description: 'Полный курс подготовки', features: ['8 занятий в месяц', 'Проверка ДЗ', 'Пробные ЕГЭ'], buttonText: 'Выбрать' },
-        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Ускоренная программа', features: ['12 занятий в месяц', 'Личный чат с преподавателем'], buttonText: 'Выбрать' },
+        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Полное погружение', features: ['От 16 занятий в месяц', 'Проверка ДЗ', 'Пробники', 'Личные чаты с преподавателями и учениками'], buttonText: 'Выбрать' },
       ];
     case 'ОГЭ':
       return [
         { title: 'Пробный урок', price: '0 ₽', description: 'Знакомство и определение уровня', features: ['Длительность 45 минут', 'Рекомендации по подготовке'], buttonText: 'Записаться' },
-        { title: 'Курс ОГЭ', price: '5 400 ₽/мес', description: 'Полный курс подготовки', features: ['8 занятий в месяц', 'Проверка ДЗ'], buttonText: 'Выбрать' },
-        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Ускоренная программа', features: ['12 занятий в месяц', 'Личный чат с преподавателем'], buttonText: 'Выбрать' },
+        { title: 'Курс ОГЭ', price: '4 700 ₽/мес', description: 'Полный курс подготовки к ОГЭ', features: ['8 занятий в месяц', 'Проверка ДЗ', 'Групповое взаимодействие'], buttonText: 'Выбрать' },
+        { title: 'Курс 1 + X', price: '9 200 ₽/мес', description: 'Полное погружение', features: ['От 16 занятий в месяц', 'Проверка ДЗ', 'Пробники', 'Личные чаты с преподавателями и учениками'], buttonText: 'Выбрать' },
       ];
     case '5-8 класс':
       return [
         { title: 'Пробный урок', price: '0 ₽', description: 'Знакомство и определение уровня', features: ['Длительность 45 минут', 'Рекомендации по подготовке'], buttonText: 'Записаться' },
-        { title: 'Базовый курс', price: '5 400 ₽/мес', description: 'Основная программа', features: ['8 занятий в месяц', 'Проверка ДЗ'], buttonText: 'Выбрать' },
-        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Ускоренная программа', features: ['12 занятий в месяц', 'Личный чат с преподавателем'], buttonText: 'Выбрать' },
+        { title: 'Базовый курс', price: '3 900 ₽/мес', description: 'Основная программа для 5-8 классов', features: ['8 занятий в месяц', 'Проверка ДЗ', 'Групповое взаимодействие'], buttonText: 'Выбрать' },
+        { title: 'Курс 1 + X', price: '7 600 ₽/мес', description: 'Полное погружение', features: ['От 16 занятий в месяц', 'Проверка ДЗ', 'Пробники', 'Личные чаты с преподавателями и учениками'], buttonText: 'Выбрать' },
       ];
     case 'Онлайн курс':
       return [
+        { title: 'Группы до 8 человек', price: '4 200 ₽/мес', description: 'Эффективная групповая подготовка', features: ['8 занятий в месяц', 'Проверка ДЗ', 'Онлайн материалы', 'Групповое взаимодействие'], buttonText: 'Выбрать' },
         { title: 'Пробный урок', price: '0 ₽', description: 'Знакомство и определение уровня', features: ['Длительность 45 минут', 'Рекомендации по подготовке'], buttonText: 'Записаться' },
-        { title: 'Онлайн курс', price: '5 400 ₽/мес', description: 'Полная онлайн подготовка', features: ['8 занятий в месяц', 'Проверка ДЗ', 'Онлайн материалы'], buttonText: 'Выбрать' },
-        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Ускоренная программа', features: ['12 занятий в месяц', 'Личный чат с преподавателем'], buttonText: 'Выбрать' },
+        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Полное погружение', features: ['От 16 занятий в месяц', 'Проверка ДЗ', 'Пробники', 'Личные чаты с преподавателями и учениками'], buttonText: 'Выбрать' },
       ];
     default:
       return [
+        { title: 'Группы до 8 человек', price: '4 200 ₽/мес', description: 'Эффективная групповая подготовка', features: ['8 занятий в месяц', 'Проверка ДЗ', 'Групповое взаимодействие'], buttonText: 'Выбрать' },
         { title: 'Пробный урок', price: '0 ₽', description: 'Знакомство и определение уровня', features: ['Длительность 45 минут', 'Рекомендации по подготовке'], buttonText: 'Записаться' },
-        { title: 'Базовый курс', price: '5 400 ₽/мес', description: 'Полный курс подготовки', features: ['8 занятий в месяц', 'Проверка ДЗ'], buttonText: 'Выбрать' },
-        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Ускоренная программа', features: ['12 занятий в месяц', 'Личный чат с преподавателем'], buttonText: 'Выбрать' },
+        { title: 'Курс 1 + X', price: 'от 10 260 ₽/мес', description: 'Полное погружение', features: ['От 16 занятий в месяц', 'Проверка ДЗ', 'Пробники', 'Личные чаты с преподавателями и учениками'], buttonText: 'Выбрать' },
       ];
   }
 };
@@ -291,9 +292,10 @@ const styles = {
     background: '#f8fafc',
     border: '1px solid #e2e8f0',
     borderRadius: '16px',
-    p: 3,
+    p: 2.5,
     textAlign: 'center',
     height: '100%',
+    minHeight: 140,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -500,7 +502,31 @@ const SubjectPage = () => {
                       О программе курса
                     </Typography>
                     <Typography variant="body1" color="text.secondary" paragraph>
-                      {teacher.courseInfo.programDescription}
+                      {(() => {
+                        const subjectCases: { [key: string]: string } = {
+                          'Математика': 'по математике',
+                          'Русский язык': 'по русскому языку',
+                          'Физика': 'по физике',
+                          'Информатика': 'по информатике',
+                          'Английский язык': 'по английскому языку',
+                          'Биология': 'по биологии',
+                          'Химия': 'по химии',
+                          'История': 'по истории',
+                          'Обществознание': 'по обществознанию',
+                          'Литература': 'по литературе',
+                        };
+                        const subj = subjectCases[subjectName] || ('по предмету ' + subjectName.toLowerCase());
+                        if (targetExamType === 'ОГЭ') {
+                          return `Систематизация знаний ${subj}, отработка формата ОГЭ, решение типовых заданий, подготовка к успешной сдаче экзамена.`;
+                        }
+                        if (targetExamType === '5-8 класс') {
+                          return `Углубленное изучение школьной программы ${subj}, устранение пробелов, развитие самостоятельности, подготовка к ВПР и олимпиадам.`;
+                        }
+                        if (targetExamType === 'Онлайн курс') {
+                          return `Интенсивная программа ${subj} для закрепления знаний и подготовки к новому учебному году. Мини-группы, практика, поддержка преподавателя.`;
+                        }
+                        return teacher.courseInfo.programDescription;
+                      })()}
                     </Typography>
                   </Box>
 
@@ -514,35 +540,44 @@ const SubjectPage = () => {
                     </Typography>
                     <Box sx={{ 
                       display: 'grid',
-                      gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' },
+                      gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
                       gap: 2,
                       mt: 3
                     }}>
                       <Box sx={styles.statsCard}>
-                        <AccessTimeIcon sx={{ color: '#f2aa8d', fontSize: 40, mb: 1 }} />
-                        <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d' }}>
+                        <GroupsIcon sx={{ color: '#f2aa8d', fontSize: 32, mb: 1 }} />
+                        <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d', fontSize: '1rem', fontWeight: 600 }}>
+                          Группы до 8 человек
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem' }}>
+                          Эффективное обучение
+                        </Typography>
+                      </Box>
+                      <Box sx={styles.statsCard}>
+                        <AccessTimeIcon sx={{ color: '#f2aa8d', fontSize: 32, mb: 1 }} />
+                        <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d', fontSize: '1rem', fontWeight: 600 }}>
                           90 минут
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem' }}>
                           Длительность урока
                         </Typography>
                       </Box>
                       <Box sx={styles.statsCard}>
-                        <PersonIcon sx={{ color: '#f2aa8d', fontSize: 40, mb: 1 }} />
-                        <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d' }}>
-                          1-на-1
+                        <AutoStoriesIcon sx={{ color: '#f2aa8d', fontSize: 32, mb: 1 }} />
+                        <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d', fontSize: '1rem', fontWeight: 600 }}>
+                          Материалы
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          Индивидуально
+                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem' }}>
+                          Авторские методички
                         </Typography>
                       </Box>
                       <Box sx={styles.statsCard}>
-                        <AutoStoriesIcon sx={{ color: '#f2aa8d', fontSize: 40, mb: 1 }} />
-                        <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d' }}>
-                          Материалы
+                        <PersonIcon sx={{ color: '#f2aa8d', fontSize: 32, mb: 1 }} />
+                        <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d', fontSize: '1rem', fontWeight: 600 }}>
+                          1-на-1
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          Авторские методички
+                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem' }}>
+                          Индивидуально
                         </Typography>
                       </Box>
                     </Box>
@@ -720,9 +755,11 @@ const SubjectPage = () => {
                   </Typography>
                   <Box sx={{ width: '100%'}}>
                     {option.features.map((feature) => (
-                      <Box key={feature} sx={{ display: 'flex', alignItems: 'center', mb: 1, justifyContent: 'center' }}>
-                        <CheckCircleIcon sx={{ mr: 1, color: '#1e7dbd' }} />
-                        <Typography variant="body2" color='text.secondary'>
+                      <Box key={feature} sx={{ display: 'flex', alignItems: 'flex-start', mb: 1, justifyContent: 'flex-start' }}>
+                        <Box sx={{ minWidth: 28, display: 'flex', justifyContent: 'center', alignItems: 'center', pt: '2px' }}>
+                          <CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 22 }} />
+                        </Box>
+                        <Typography variant="body2" color='text.secondary' sx={{ textAlign: 'left', pl: 1 }}>
                           {feature}
                         </Typography>
                       </Box>
