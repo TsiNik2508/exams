@@ -9,6 +9,7 @@ import { useInView } from 'react-intersection-observer';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import GroupsIcon from '@mui/icons-material/Groups';
+import PopupForm from '../common/PopupForm';
 
 // Import teacher images
 import annaImg from '../../assets/teachers/anna.jpg';
@@ -332,6 +333,8 @@ const SubjectPage = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [showMobileVideo, setShowMobileVideo] = useState(false);
   const videoMobileRef = useRef<HTMLVideoElement>(null);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupCourse, setPopupCourse] = useState<string>('');
 
   // 1. Filter teachers by subject
   const subjectTeachers = teachers.filter(t => t.subject.split(' и ').includes(subjectName));
@@ -529,10 +532,6 @@ const SubjectPage = () => {
                       })()}
                     </Typography>
                   </Box>
-
-                  <Button variant="contained" sx={styles.button}>
-                    Записаться на курс
-                  </Button>
 
                   <Box sx={{ mt: 5 }}>
                     <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: '#1e7dbd' }}>
@@ -769,6 +768,10 @@ const SubjectPage = () => {
                     variant="contained"
                     sx={{ ...styles.button, width: '100%', mt: 4 }}
                     size="large"
+                    onClick={() => {
+                      setPopupCourse(option.title);
+                      setPopupOpen(true);
+                    }}
                   >
                     {option.buttonText}
                   </Button>
@@ -778,6 +781,14 @@ const SubjectPage = () => {
           </Box>
         </Container>
       </Box>
+      <PopupForm
+        open={popupOpen}
+        onClose={() => setPopupOpen(false)}
+        section={targetExamType || 'Курс'}
+        subject={subjectName}
+        course={popupCourse}
+        formKey={`subject-${subjectName}`}
+      />
     </Box>
   );
 };

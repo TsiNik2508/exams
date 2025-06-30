@@ -84,7 +84,7 @@ const ContactSection: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          access_key: 'a827e41a-ffba-4f9f-a56f-4592930c5fa6',
+          access_key: '7a09cf75-5cd1-4b5d-afef-643ced045eab',
           name: form.name,
           phone: form.phone,
           email: form.email,
@@ -162,9 +162,18 @@ const ContactSection: React.FC = () => {
               
               {/* Статус отправки */}
               {submitStatus === 'success' ? (
-                <Alert severity="success" sx={{ mb: 3, fontSize: 18, py: 4, textAlign: 'center' }}>
-                  Спасибо! Ваше сообщение успешно отправлено.<br />Мы свяжемся с вами в ближайшее время.
-                </Alert>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', py: 6, px: 2, textAlign: 'center', animation: 'fadeIn 0.7s' }}>
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginBottom: 16 }}>
+                    <circle cx="32" cy="32" r="32" fill="#4caf50" fillOpacity="0.15"/>
+                    <path d="M20 34L29 43L44 25" stroke="#4caf50" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <Typography variant="h5" sx={{ fontWeight: 800, color: '#388e3c', mb: 1 }}>
+                    Спасибо за заявку!
+                  </Typography>
+                  <Typography variant="body1" sx={{ color: '#444', mb: 1, fontSize: 18 }}>
+                    Мы свяжемся с вами в ближайшее время.
+                  </Typography>
+                </Box>
               ) : (
                 <>
                   {submitStatus === 'error' && (

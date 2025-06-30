@@ -4,7 +4,9 @@ import MessageIcon from '@mui/icons-material/Message';
 import CloseIcon from '@mui/icons-material/Close';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import EmailIcon from '@mui/icons-material/Email';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import { motion, AnimatePresence } from 'framer-motion';
+import PopupForm from './PopupForm';
 
 // Throttle функция для оптимизации scroll событий
 const throttle = <T extends (...args: unknown[]) => void>(func: T, limit: number): T => {
@@ -21,6 +23,7 @@ const throttle = <T extends (...args: unknown[]) => void>(func: T, limit: number
 const SocialFloatingMenu = React.memo(() => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [popupOpen, setPopupOpen] = useState(false);
   const isVisibleRef = useRef(false);
 
   const toggleVisibility = useCallback(
@@ -45,6 +48,10 @@ const SocialFloatingMenu = React.memo(() => {
 
   const handleSocialClick = (type: string) => {
     switch (type) {
+      case 'form':
+        setPopupOpen(true);
+        setIsOpen(false); // Закрываем меню при открытии формы
+        break;
       case 'telegram':
         window.open('https://t.me/erudite_school_ru', '_blank');
         break;
@@ -59,19 +66,24 @@ const SocialFloatingMenu = React.memo(() => {
 
   const socialButtons = [
     {
+      icon: <ContactSupportIcon />,
+      type: 'form',
+      delay: 0.1
+    },
+    {
       icon: <TelegramIcon />,
       type: 'telegram',
-      delay: 0.1
+      delay: 0.2
     },
     {
       icon: <EmailIcon />,
       type: 'email',
-      delay: 0.2
+      delay: 0.3
     },
     {
       icon: <Box component="span" sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>VK</Box>,
       type: 'vk',
-      delay: 0.3
+      delay: 0.4
     }
   ];
 
@@ -147,15 +159,19 @@ const SocialFloatingMenu = React.memo(() => {
                   size="small"
                   onClick={() => handleSocialClick(button.type)}
                   sx={{
-                    bgcolor: '#1e7dbd',
+                    bgcolor: button.type === 'form' ? '#f2aa8d' : '#1e7dbd',
                     color: '#fff',
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                     '&:hover': {
-                      bgcolor: '#f2aa8d',
+                      bgcolor: button.type === 'form' ? '#e89a7d' : '#f2aa8d',
                       transform: 'scale(1.15) translateY(-2px)',
-                      boxShadow: '0 8px 25px rgba(242,170,141,0.4)',
+                      boxShadow: button.type === 'form' 
+                        ? '0 8px 25px rgba(242,170,141,0.4)' 
+                        : '0 8px 25px rgba(242,170,141,0.4)',
                     },
-                    boxShadow: '0 4px 15px rgba(30,125,189,0.3)',
+                    boxShadow: button.type === 'form' 
+                      ? '0 4px 15px rgba(242,170,141,0.3)' 
+                      : '0 4px 15px rgba(30,125,189,0.3)',
                   }}
                 >
                   {button.icon}
@@ -165,6 +181,15 @@ const SocialFloatingMenu = React.memo(() => {
           </Box>
         )}
       </AnimatePresence>
+
+      {/* Попап с формой */}
+      <PopupForm
+        open={popupOpen}
+        onClose={() => setPopupOpen(false)}
+        section="Плавающее меню"
+        showMessageField={true}
+        formKey="floating-menu"
+      />
     </>
   );
 });

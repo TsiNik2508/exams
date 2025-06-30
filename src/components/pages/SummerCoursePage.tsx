@@ -1,6 +1,6 @@
 import { Box, Container, Typography, Button, Paper, Slide } from '@mui/material';
 import { useInView } from 'react-intersection-observer';
-import React from 'react';
+import React, { useState } from 'react';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import GroupsIcon from '@mui/icons-material/Groups';
@@ -10,6 +10,7 @@ import DevicesIcon from '@mui/icons-material/Devices';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import PopupForm from '../common/PopupForm';
 
 const styles = {
   pageWrapper: {
@@ -210,6 +211,8 @@ const whatYouGetItems = [
 
 
 const SummerCoursePage = () => {
+  const [popupOpen, setPopupOpen] = useState(false);
+
   return (
     <Box sx={styles.pageWrapper}>
       <Container maxWidth="md">
@@ -281,13 +284,27 @@ const SummerCoursePage = () => {
             <Typography variant="h6" color="text.secondary">
                 за 1 курс
             </Typography>
-            <Button variant="contained" size="large" sx={styles.button}>
+            <Button 
+              variant="contained" 
+              size="large" 
+              sx={styles.button}
+              onClick={() => setPopupOpen(true)}
+            >
                 Записаться
             </Button>
             </Box>
         </AnimateOnScroll>
 
       </Container>
+
+      {/* Попап с формой */}
+      <PopupForm
+        open={popupOpen}
+        onClose={() => setPopupOpen(false)}
+        course="Летний интенсив"
+        section="Летние курсы"
+        formKey="summer-course"
+      />
     </Box>
   );
 };

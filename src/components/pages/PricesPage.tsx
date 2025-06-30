@@ -1,6 +1,8 @@
 import { Box, Container, Typography, Button } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined';
+import { useState } from 'react';
+import PopupForm from '../common/PopupForm';
 
 const styles = {
   pageWrapper: {
@@ -356,6 +358,14 @@ const benefitCards = [
 ];
 
 const PricesPage = () => {
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupCourse, setPopupCourse] = useState('');
+
+  const handleOpenPopup = (course: string) => {
+    setPopupCourse(course);
+    setPopupOpen(true);
+  };
+
   return (
     <Box sx={styles.pageWrapper}>
       <Container maxWidth="lg">
@@ -383,7 +393,12 @@ const PricesPage = () => {
               <li><CheckCircleIcon sx={{ color: '#f2aa8d', fontSize: 18, mr: 1 }} />30 ак. часов (2 недели)</li>
             </ul>
           </Box>
-          <Button sx={{ ...styles.courseBtn, background: '#f2aa8d', color: '#fff', '&:hover': { background: '#1e7dbd' } }}>Записаться</Button>
+          <Button 
+            sx={{ ...styles.courseBtn, background: '#f2aa8d', color: '#fff', '&:hover': { background: '#1e7dbd' } }}
+            onClick={() => handleOpenPopup('Летний интенсив')}
+          >
+            Записаться
+          </Button>
         </Box>
         <Box sx={{ ...styles.withFramePrice, ...styles.withFramePriceOrange }}>10 000 ₽ / курс</Box>
 
@@ -398,7 +413,12 @@ const PricesPage = () => {
               <li><CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 18, mr: 1 }} />Первое занятие — бесплатно</li>
             </ul>
           </Box>
-          <Button sx={styles.courseBtn}>Выбрать предмет</Button>
+          <Button 
+            sx={styles.courseBtn}
+            onClick={() => handleOpenPopup('Подготовка к ЕГЭ 2024/2025')}
+          >
+            Выбрать предмет
+          </Button>
         </Box>
         <Box sx={styles.withFramePrice}>5 400 ₽ / мес.</Box>
 
@@ -464,7 +484,7 @@ const PricesPage = () => {
                 <Typography sx={{ ...styles.benefitCardTitle, color: '#1e7dbd', fontWeight: 800, fontSize: { xs: '1rem', sm: '1.25rem' }, mb: 0.5 }}>
                   Скидка на
                 </Typography>
-                <Typography sx={{
+                <Box sx={{
                   ...styles.benefitCardTitle,
                   color: '#1e7dbd',
                   fontWeight: 800,
@@ -488,7 +508,7 @@ const PricesPage = () => {
                   }}>
                     второй предмет
                   </Box>
-                </Typography>
+                </Box>
                 {benefitCards[1].bullets.map((b, i) => (
                   <Box key={i} sx={{ display: 'flex', alignItems: 'flex-start', mb: 0.5 }}>
                     <Box sx={{ width: 8, height: 8, bgcolor: '#f2aa8d', borderRadius: '50%', mt: '8px', mr: 1.2, flexShrink: 0 }} />
@@ -499,10 +519,10 @@ const PricesPage = () => {
             </Box>
             {/* Нижний блок - на всю ширину */}
             <Box sx={{ ...styles.benefitCard, ...styles.benefitCardWide, zIndex: 2, position: 'relative', mt: { xs: 2, md: '-80px' }, flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-              <Typography sx={{ ...styles.benefitCardTitle, color: '#444', fontWeight: 700, fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.6rem' }, mb: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+              <Box sx={{ ...styles.benefitCardTitle, color: '#444', fontWeight: 700, fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.6rem' }, mb: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
                 <Box sx={{ width: 12, height: 12, bgcolor: '#f2aa8d', borderRadius: '50%', mr: 1, display: 'inline-block' }} />
                 Скидка 10% за разовую
-              </Typography>
+              </Box>
               <Box component="span" sx={{
                 background: '#1e7dbd',
                 color: '#fff',
@@ -548,7 +568,12 @@ const PricesPage = () => {
               <li><CheckCircleIcon sx={{ color: '#f2aa8d', fontSize: 18, mr: 1 }} />Первое занятие — бесплатно</li>
             </ul>
           </Box>
-          <Button sx={{ ...styles.courseBtn, background: '#f2aa8d', color: '#fff', '&:hover': { background: '#1e7dbd' } }}>Выбрать предмет</Button>
+          <Button 
+            sx={{ ...styles.courseBtn, background: '#f2aa8d', color: '#fff', '&:hover': { background: '#1e7dbd' } }}
+            onClick={() => handleOpenPopup('Подготовка к ОГЭ 2024/2025')}
+          >
+            Выбрать предмет
+          </Button>
         </Box>
         <Box sx={{ ...styles.withFramePrice, ...styles.withFramePriceOrange }}>5 400 ₽ / мес.</Box>
 
@@ -563,7 +588,12 @@ const PricesPage = () => {
               <li><CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 18, mr: 1 }} />Первое занятие — бесплатно</li>
             </ul>
           </Box>
-          <Button sx={styles.courseBtn}>Выбрать предмет</Button>
+          <Button 
+            sx={styles.courseBtn}
+            onClick={() => handleOpenPopup('5–8 класс')}
+          >
+            Выбрать предмет
+          </Button>
         </Box>
         <Box sx={styles.withFramePrice}>5 400 ₽ / мес.</Box>
 
@@ -578,10 +608,24 @@ const PricesPage = () => {
               <li><CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 18, mr: 1 }} />Персональная программа</li>
             </ul>
           </Box>
-          <Button sx={styles.courseBtn}>Записаться</Button>
+          <Button 
+            sx={styles.courseBtn}
+            onClick={() => handleOpenPopup('Индивидуальные занятия')}
+          >
+            Записаться
+          </Button>
         </Box>
         <Box sx={styles.withFramePrice}>1 000–1 500 ₽ / занятие</Box>
       </Container>
+
+      {/* Попап с формой */}
+      <PopupForm
+        open={popupOpen}
+        onClose={() => setPopupOpen(false)}
+        course={popupCourse}
+        section="Стоимость обучения"
+        formKey="prices-page"
+      />
     </Box>
   );
 };
