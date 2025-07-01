@@ -2,14 +2,22 @@ import React, { useState } from 'react';
 import { Box, Typography, Card, CardContent, Button, Chip } from '@mui/material';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import SchoolIcon from '@mui/icons-material/School';
 import PopupForm from '../common/PopupForm';
 
 const prices = [
   {
-    title: 'ОГЭ/ЕГЭ',
-    desc: 'Подготовка к экзаменам',
-    price: '3500 руб/мес',
+    title: 'ОГЭ',
+    desc: 'Подготовка к экзаменам 9 класс',
+    price: '5400 ₽/мес',
+    icon: <SchoolIcon sx={{ color: '#1e7dbd', fontSize: 36 }} />, 
+    badge: 'Популярно',
+    benefits: ['Группы до 8 человек', 'Авторские материалы', 'Пробный урок бесплатно'],
+  },
+  {
+    title: 'ЕГЭ',
+    desc: 'Подготовка к экзаменам 10-11 класс',
+    price: '5400 ₽/мес',
     icon: <EmojiEventsIcon sx={{ color: '#1e7dbd', fontSize: 36 }} />, 
     badge: 'Хит',
     benefits: ['Группы до 8 человек', 'Авторские материалы', 'Пробный урок бесплатно'],
@@ -17,17 +25,9 @@ const prices = [
   {
     title: '5-8 класс',
     desc: 'Школьные предметы',
-    price: '3000 руб/мес',
+    price: '5400 ₽/мес',
     icon: <MenuBookIcon sx={{ color: '#1e7dbd', fontSize: 36 }} />, 
     benefits: ['Индивидуальный подход', 'Домашние задания', 'Поддержка преподавателя'],
-  },
-  {
-    title: 'Летние курсы',
-    desc: 'Курс 1 + X',
-    price: '2500 руб/мес',
-    icon: <WbSunnyIcon sx={{ color: '#1e7dbd', fontSize: 36 }} />, 
-    badge: 'Выгодно',
-    benefits: ['Быстрый прогресс', 'Интерактивные занятия', 'Сертификат по итогам'],
   },
 ];
 

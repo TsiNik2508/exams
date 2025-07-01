@@ -3,6 +3,12 @@ import { motion } from 'framer-motion';
 import StarIcon from '@mui/icons-material/Star';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 
+// Импортируем фотографии отзывов
+import review1 from '../../assets/review/1.jpg';
+import review2 from '../../assets/review/2.jpg';
+import review3 from '../../assets/review/3.jpg';
+import review4 from '../../assets/review/4.jpg';
+
 const reviews = [
   {
     id: 1,
@@ -10,7 +16,7 @@ const reviews = [
     grade: '11 класс',
     text: 'Благодаря курсам по математике я смогла сдать ЕГЭ на 98 баллов! Преподаватели объясняют материал очень доступно и интересно.',
     rating: 5,
-    photo: 'https://randomuser.me/api/portraits/women/45.jpg',
+    photo: review1,
     subject: 'Математика',
   },
   {
@@ -19,7 +25,7 @@ const reviews = [
     grade: '9 класс',
     text: 'Отличные курсы по физике! Теперь я понимаю предмет намного лучше, а домашние задания стали делать с удовольствием.',
     rating: 5,
-    photo: 'https://randomuser.me/api/portraits/men/32.jpg',
+    photo: review2,
     subject: 'Физика',
   },
   {
@@ -28,7 +34,7 @@ const reviews = [
     grade: '8 класс',
     text: 'Занимаюсь русским языком уже второй год. Результаты заметны: оценки улучшились, а грамотность стала выше.',
     rating: 5,
-    photo: 'https://randomuser.me/api/portraits/women/22.jpg',
+    photo: review3,
     subject: 'Русский язык',
   },
   {
@@ -37,7 +43,7 @@ const reviews = [
     grade: '10 класс',
     text: 'Преподаватели находят подход к каждому ученику. Материал подается структурированно и понятно.',
     rating: 5,
-    photo: 'https://randomuser.me/api/portraits/men/67.jpg',
+    photo: review4,
     subject: 'Английский язык',
   },
 ];
