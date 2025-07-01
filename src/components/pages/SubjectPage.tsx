@@ -146,11 +146,9 @@ const styles = {
   },
   teacherSection: {
     py: { xs: 6, md: 8 },
-    background: '#ffffff',
   },
   priceSection: {
     py: { xs: 6, md: 8 },
-    background: '#f8fafc',
   },
   teacherCard: {
     background: 'transparent',
@@ -162,7 +160,7 @@ const styles = {
     height: { xs: 'auto', md: 350, lg: 450, xl: 550 },
     objectFit: 'cover' as const,
     borderRadius: '24px',
-    boxShadow: '0 8px 24px rgba(30,125,189,0.1)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     position: 'relative',
   },
   videoCircle: {
@@ -175,12 +173,12 @@ const styles = {
     overflow: 'hidden',
     cursor: 'pointer',
     transition: 'all 1.5s cubic-bezier(0.25, 0.8, 0.25, 1)',
-    boxShadow: '0 4px 16px rgba(30,125,189,0.3)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     zIndex: 2,
     border: '3px solid #fff',
     '&:hover': {
       transform: 'scale(1.8)',
-      boxShadow: '0 12px 32px rgba(30,125,189,0.6)',
+      boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
       cursor: 'none',
       '&::after': {
         content: '""',
@@ -245,10 +243,10 @@ const styles = {
     },
   },
   reviewCard: {
-    background: 'white',
+    background: '#ffffff',
     borderRadius: '20px',
     p: { xs: 3, md: 4 },
-    boxShadow: '0 8px 24px rgba(30,125,189,0.08)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     position: 'relative',
     border: '1px solid #e2e8f0',
   },
@@ -260,15 +258,15 @@ const styles = {
     alignItems: 'center',
     textAlign: 'center',
     borderRadius: '20px',
-    background: 'white',
-    boxShadow: '0 4px 16px rgba(30,125,189,0.05)',
+    background: '#ffffff',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     border: '1px solid #e2e8f0',
     transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
     position: 'relative',
     overflow: 'hidden',
     '&:hover': {
       transform: 'translateY(-5px) scale(1.02)',
-      boxShadow: '0 12px 32px rgba(30,125,189,0.1)',
+      boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
       borderColor: '#1e7dbd'
     },
   },
@@ -281,16 +279,16 @@ const styles = {
     fontSize: '1.1rem',
     fontWeight: 600,
     textTransform: 'none',
-    boxShadow: '0 4px 16px rgba(30,125,189,0.25)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
     '&:hover': {
       background: '#f2aa8d',
       transform: 'translateY(-3px)',
-      boxShadow: '0 8px 20px rgba(242,170,141,0.3)',
+      boxShadow: '0 12px 35px 0 rgba(242,170,141,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
     },
   },
   statsCard: {
-    background: '#f8fafc',
+    background: '#ffffff',
     border: '1px solid #e2e8f0',
     borderRadius: '16px',
     p: 2.5,
@@ -304,7 +302,27 @@ const styles = {
     transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
     '&:hover': {
       transform: 'translateY(-5px)',
-      boxShadow: '0 8px 20px rgba(30,125,189,0.05)',
+      boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
+      borderColor: '#1e7dbd'
+    }
+  },
+  statsCardNoShadow: {
+    background: '#ffffff',
+    border: '1px solid #e2e8f0',
+    borderRadius: '16px',
+    p: 2.5,
+    textAlign: 'center',
+    height: '100%',
+    minHeight: 140,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
+    '&:hover': {
+      transform: 'translateY(-5px)',
+      boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
       borderColor: '#1e7dbd'
     }
   },
@@ -500,7 +518,7 @@ const SubjectPage = () => {
                     </Typography>
                   </Box>
 
-                  <Box sx={{ my: 4, p: 3, background: '#f8fafc', borderRadius: '16px' }}>
+                  <Box sx={{ my: 4, p: 3, background: '#ffffff', borderRadius: '16px', boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)' }}>
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 2, color: '#1e7dbd' }}>
                       О программе курса
                     </Typography>
@@ -543,7 +561,26 @@ const SubjectPage = () => {
                       gap: 2,
                       mt: 3
                     }}>
-                      <Box sx={styles.statsCard}>
+                      <Box sx={{
+                        background: '#ffffff',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '16px',
+                        p: 2.5,
+                        textAlign: 'center',
+                        height: '100%',
+                        minHeight: 140,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                        boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
+                        '&:hover': {
+                          transform: 'translateY(-5px)',
+                          boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
+                          borderColor: '#1e7dbd'
+                        }
+                      }}>
                         <GroupsIcon sx={{ color: '#f2aa8d', fontSize: 32, mb: 1 }} />
                         <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d', fontSize: '1rem', fontWeight: 600 }}>
                           Группы до 8 человек
@@ -552,7 +589,26 @@ const SubjectPage = () => {
                           Эффективное обучение
                         </Typography>
                       </Box>
-                      <Box sx={styles.statsCard}>
+                      <Box sx={{
+                        background: '#ffffff',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '16px',
+                        p: 2.5,
+                        textAlign: 'center',
+                        height: '100%',
+                        minHeight: 140,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                        boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
+                        '&:hover': {
+                          transform: 'translateY(-5px)',
+                          boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
+                          borderColor: '#1e7dbd'
+                        }
+                      }}>
                         <AccessTimeIcon sx={{ color: '#f2aa8d', fontSize: 32, mb: 1 }} />
                         <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d', fontSize: '1rem', fontWeight: 600 }}>
                           90 минут
@@ -561,7 +617,26 @@ const SubjectPage = () => {
                           Длительность урока
                         </Typography>
                       </Box>
-                      <Box sx={styles.statsCard}>
+                      <Box sx={{
+                        background: '#ffffff',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '16px',
+                        p: 2.5,
+                        textAlign: 'center',
+                        height: '100%',
+                        minHeight: 140,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                        boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
+                        '&:hover': {
+                          transform: 'translateY(-5px)',
+                          boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
+                          borderColor: '#1e7dbd'
+                        }
+                      }}>
                         <AutoStoriesIcon sx={{ color: '#f2aa8d', fontSize: 32, mb: 1 }} />
                         <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d', fontSize: '1rem', fontWeight: 600 }}>
                           Материалы
@@ -570,7 +645,26 @@ const SubjectPage = () => {
                           Авторские методички
                         </Typography>
                       </Box>
-                      <Box sx={styles.statsCard}>
+                      <Box sx={{
+                        background: '#ffffff',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '16px',
+                        p: 2.5,
+                        textAlign: 'center',
+                        height: '100%',
+                        minHeight: 140,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                        boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
+                        '&:hover': {
+                          transform: 'translateY(-5px)',
+                          boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
+                          borderColor: '#1e7dbd'
+                        }
+                      }}>
                         <PersonIcon sx={{ color: '#f2aa8d', fontSize: 32, mb: 1 }} />
                         <Typography variant="h6" gutterBottom sx={{ color: '#f2aa8d', fontSize: '1rem', fontWeight: 600 }}>
                           1-на-1
@@ -670,7 +764,7 @@ const SubjectPage = () => {
                           zIndex: 2,
                           display: 'inline-flex',
                           alignItems: 'center',
-                          boxShadow: '0 2px 8px rgba(30,125,189,0.15)',
+                          boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
                           '@media (min-width: 600px)': {
                             display: 'none', // Скрываем на десктопе
                           },

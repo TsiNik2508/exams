@@ -7,7 +7,6 @@ import PopupForm from '../common/PopupForm';
 const styles = {
   pageWrapper: {
     py: { xs: 2, sm: 4, md: 6 },
-    background: '#f8f6f3',
     minHeight: '100vh',
   },
   mainTitle: {
@@ -37,7 +36,7 @@ const styles = {
     boxDecorationBreak: 'clone',
     WebkitBoxDecorationBreak: 'clone',
     display: 'inline-block',
-    boxShadow: '0 8px 24px rgba(30,125,189,0.25), 0 4px 12px rgba(30,125,189,0.15)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     transform: 'rotate(-1deg)',
     position: 'relative',
     '&::before': {
@@ -203,7 +202,7 @@ const styles = {
     background: '#1e7dbd',
     color: '#fff',
     borderRadius: '28px',
-    boxShadow: '0 8px 32px rgba(30,125,189,0.13)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     p: { xs: 2, sm: 3 },
     display: 'flex',
     flexDirection: 'column',
@@ -214,7 +213,7 @@ const styles = {
     lineHeight: 1.7,
     transition: 'box-shadow 0.2s, transform 0.2s',
     '&:hover': {
-      boxShadow: '0 12px 36px rgba(30,125,189,0.18)',
+      boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
       transform: { xs: 'scale(1.02)', md: 'scale(1.03) rotate(-2deg)' },
       zIndex: 10,
     },
@@ -230,9 +229,9 @@ const styles = {
     color: '#222',
     border: '2px solid #f2aa8d',
     transform: { xs: 'rotate(0deg)', md: 'rotate(1.5deg)' },
-    boxShadow: '0 8px 32px rgba(242,170,141,0.10)',
+    boxShadow: '0 8px 25px 0 rgba(242,170,141,0.10), 0 4px 12px 0 rgba(0,0,0,0.1)',
     '&:hover': {
-      boxShadow: '0 12px 36px rgba(242,170,141,0.18)',
+      boxShadow: '0 12px 35px 0 rgba(242,170,141,0.18), 0 6px 20px 0 rgba(0,0,0,0.15)',
       transform: { xs: 'scale(1.02)', md: 'scale(1.03) rotate(1.5deg)' },
     },
   },
@@ -246,7 +245,7 @@ const styles = {
     mt: { xs: 0, md: '-56px' },
     zIndex: 2,
     borderRadius: '28px',
-    boxShadow: '0 8px 32px rgba(242,170,141,0.10)',
+    boxShadow: '0 8px 25px 0 rgba(242,170,141,0.10), 0 4px 12px 0 rgba(0,0,0,0.1)',
     display: 'flex',
     alignItems: 'center',
     minHeight: { xs: 'auto', md: 80 },
@@ -254,7 +253,7 @@ const styles = {
     margin: '0 auto',
     marginLeft: { xs: 0, md: 0 },
     '&:hover': {
-      boxShadow: '0 12px 36px rgba(242,170,141,0.18)',
+      boxShadow: '0 12px 35px 0 rgba(242,170,141,0.18), 0 6px 20px 0 rgba(0,0,0,0.15)',
       transform: { xs: 'scale(1.02)', md: 'scale(1.02) rotate(0.5deg)' },
     },
   },

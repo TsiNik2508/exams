@@ -54,11 +54,11 @@ const BenefitsSection = () => (
               p: 3,
               borderRadius: 4,
               bgcolor: '#fff',
-              boxShadow: '0 4px 24px 0 rgba(30,125,189,0.13)',
+              boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
               transition: 'all 0.3s ease',
               '&:hover': {
                 transform: 'translateY(-8px)',
-                boxShadow: '0 8px 32px 0 rgba(30,125,189,0.18)',
+                boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
                 '& .MuiSvgIcon-root': {
                   color: '#f2aa8d',
                 },

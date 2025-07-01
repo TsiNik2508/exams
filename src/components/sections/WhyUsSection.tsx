@@ -34,7 +34,7 @@ const WhyUsSection = () => (
               gap: 1.5,
               bgcolor: '#fff',
               borderRadius: 4,
-              boxShadow: '0 2px 10px 0 rgba(30,125,189,0.07)',
+              boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
               px: 2.5,
               py: 1.5,
               minHeight: 90,

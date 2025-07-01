@@ -181,103 +181,103 @@ const ContactSection: React.FC = () => {
                       {errorMessage}
                     </Alert>
                   )}
-                  <Box component="form" onSubmit={handleSubmit}>
-                    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, mb: 2 }}>
-                      <TextField
-                        fullWidth
-                        label="Ваше имя"
-                        name="name"
-                        value={form.name}
-                        onChange={handleChange}
-                        variant="outlined"
+              <Box component="form" onSubmit={handleSubmit}>
+                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, mb: 2 }}>
+                  <TextField
+                    fullWidth
+                    label="Ваше имя"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    variant="outlined"
                         disabled={isSubmitting}
-                        sx={{
-                          '& .MuiOutlinedInput-root': {
-                            '& fieldset': { borderColor: '#e0e0e0' },
-                            '&:hover fieldset': { borderColor: '#1e7dbd' },
-                            '&.Mui-focused fieldset': { borderColor: '#1e7dbd' },
-                          },
-                        }}
-                      />
-                      <TextField
-                        fullWidth
-                        label="Телефон"
-                        name="phone"
-                        value={form.phone}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': { borderColor: '#e0e0e0' },
+                        '&:hover fieldset': { borderColor: '#1e7dbd' },
+                        '&.Mui-focused fieldset': { borderColor: '#1e7dbd' },
+                      },
+                    }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Телефон"
+                    name="phone"
+                    value={form.phone}
                         onChange={handlePhoneChange}
-                        variant="outlined"
+                    variant="outlined"
                         disabled={isSubmitting}
                         placeholder="+7 (___) ___-__-__"
                         inputProps={{ maxLength: 18, inputMode: 'tel', pattern: '\\+7 \\([0-9]{3}\\) [0-9]{3}-[0-9]{2}-[0-9]{2}', ref: phoneInputRef }}
                         onFocus={handlePhoneFocus}
                         onClick={handlePhoneClick}
-                        sx={{
-                          '& .MuiOutlinedInput-root': {
-                            '& fieldset': { borderColor: '#e0e0e0' },
-                            '&:hover fieldset': { borderColor: '#1e7dbd' },
-                            '&.Mui-focused fieldset': { borderColor: '#1e7dbd' },
-                          },
-                        }}
-                      />
-                    </Box>
-                    <TextField
-                      fullWidth
-                      label="Email"
-                      name="email"
-                      type="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': { borderColor: '#e0e0e0' },
+                        '&:hover fieldset': { borderColor: '#1e7dbd' },
+                        '&.Mui-focused fieldset': { borderColor: '#1e7dbd' },
+                      },
+                    }}
+                  />
+                </Box>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  variant="outlined"
                       disabled={isSubmitting}
-                      sx={{
-                        mb: 2,
-                        '& .MuiOutlinedInput-root': {
-                          '& fieldset': { borderColor: '#e0e0e0' },
-                          '&:hover fieldset': { borderColor: '#1e7dbd' },
-                          '&.Mui-focused fieldset': { borderColor: '#1e7dbd' },
-                        },
-                      }}
-                    />
-                    <TextField
-                      fullWidth
-                      label="Сообщение"
-                      name="message"
-                      multiline
-                      rows={4}
-                      value={form.message}
-                      onChange={handleChange}
-                      variant="outlined"
+                  sx={{
+                    mb: 2,
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': { borderColor: '#e0e0e0' },
+                      '&:hover fieldset': { borderColor: '#1e7dbd' },
+                      '&.Mui-focused fieldset': { borderColor: '#1e7dbd' },
+                    },
+                  }}
+                />
+                <TextField
+                  fullWidth
+                  label="Сообщение"
+                  name="message"
+                  multiline
+                  rows={4}
+                  value={form.message}
+                  onChange={handleChange}
+                  variant="outlined"
                       disabled={isSubmitting}
-                      sx={{
-                        mb: 2,
-                        '& .MuiOutlinedInput-root': {
-                          '& fieldset': { borderColor: '#e0e0e0' },
-                          '&:hover fieldset': { borderColor: '#1e7dbd' },
-                          '&.Mui-focused fieldset': { borderColor: '#1e7dbd' },
-                        },
-                      }}
-                    />
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      fullWidth
+                  sx={{
+                    mb: 2,
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': { borderColor: '#e0e0e0' },
+                      '&:hover fieldset': { borderColor: '#1e7dbd' },
+                      '&.Mui-focused fieldset': { borderColor: '#1e7dbd' },
+                    },
+                  }}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
                       disabled={isSubmitting}
-                      sx={{
-                        fontWeight: 700,
-                        borderRadius: 2,
-                        fontSize: 17,
-                        py: 1.5,
-                        boxShadow: '0 4px 24px 0 rgba(30,125,189,0.13)',
-                        transition: 'all 0.3s ease',
-                        '&:hover': {
-                          boxShadow: '0 8px 32px 0 rgba(242,170,141,0.18)',
-                          transform: 'translateY(-2px)',
-                        },
+                  sx={{
+                    fontWeight: 700,
+                    borderRadius: 2,
+                    fontSize: 17,
+                    py: 1.5,
+                    boxShadow: '0 4px 24px 0 rgba(30,125,189,0.13)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      boxShadow: '0 8px 32px 0 rgba(242,170,141,0.18)',
+                      transform: 'translateY(-2px)',
+                    },
                         '&:disabled': {
                           opacity: 0.7,
                         },
-                      }}
-                    >
+                  }}
+                >
                       {isSubmitting ? (
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                           <CircularProgress size={20} color="inherit" />
@@ -286,8 +286,8 @@ const ContactSection: React.FC = () => {
                       ) : (
                         'Отправить сообщение'
                       )}
-                    </Button>
-                  </Box>
+                </Button>
+              </Box>
                 </>
               )}
             </Paper>

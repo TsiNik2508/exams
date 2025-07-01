@@ -15,7 +15,6 @@ import PopupForm from '../common/PopupForm';
 const styles = {
   pageWrapper: {
     py: { xs: 6, md: 8 },
-    backgroundColor: '#f8fafc',
   },
   hero: {
     textAlign: 'center',
@@ -46,12 +45,12 @@ const styles = {
     p: { xs: 2, md: 2.5 },
     mb: 2,
     borderRadius: '24px 8px 24px 8px',
-    boxShadow: '0 8px 30px rgba(30,125,189,0.1)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     background: '#fff',
     transition: 'all 0.3s ease',
     '&:hover': {
         transform: 'translateY(-4px)',
-        boxShadow: '0 12px 40px rgba(30,125,189,0.15)',
+        boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
     }
   },
   listItemIcon: {
@@ -76,11 +75,11 @@ const styles = {
     borderRadius: '24px',
     textAlign: 'center',
     border: `3px solid #1e7dbd`,
-    boxShadow: '0 10px 40px rgba(30,125,189,0.1)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     transition: 'all 0.3s ease',
      '&:hover': {
         transform: 'translateY(-6px)',
-        boxShadow: '0 16px 50px rgba(30,125,189,0.15)',
+        boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
         borderColor: '#f2aa8d',
     }
   },
@@ -120,12 +119,12 @@ const styles = {
     p: { xs: 2, md: 2.5 },
     mb: 2,
     borderRadius: '24px',
-    boxShadow: '0 8px 30px rgba(30,125,189,0.08)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     background: '#fff',
     transition: 'all 0.3s ease',
     '&:hover': {
         transform: 'translateY(-4px)',
-        boxShadow: '0 12px 40px rgba(30,125,189,0.12)',
+        boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
     }
   },
   whatIsItIconWrapper: {
@@ -148,7 +147,7 @@ const styles = {
     textAlign: 'center',
     borderRadius: '16px',
     background: '#fff',
-    boxShadow: '0 8px 30px rgba(30,125,189,0.08)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     transition: 'all 0.3s ease',
     height: '100%',
     display: 'flex',
@@ -158,7 +157,7 @@ const styles = {
     border: '2px solid transparent',
     '&:hover': {
         transform: 'translateY(-6px)',
-        boxShadow: '0 12px 40px rgba(30,125,189,0.2)',
+        boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
         borderColor: '#1e7dbd',
         '& .MuiSvgIcon-root': {
             transform: 'scale(1.15)',

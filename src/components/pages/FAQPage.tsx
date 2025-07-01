@@ -150,19 +150,8 @@ const faqData = [
 const styles = {
   pageWrapper: {
     py: { xs: 12, md: 16 },
-    background: '#f8fafc',
     minHeight: '100vh',
     position: 'relative',
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      background: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%231e7dbd" fill-opacity="0.03"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
-      opacity: 0.5,
-    },
   },
   mainTitle: {
     textAlign: 'center',
@@ -197,7 +186,7 @@ const styles = {
     p: 3,
     background: 'rgba(255,255,255,0.9)',
     borderRadius: '20px',
-    boxShadow: '0 8px 32px rgba(30,125,189,0.1)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     border: '1px solid rgba(30,125,189,0.1)',
     backdropFilter: 'blur(10px)',
   },
@@ -207,7 +196,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
   },
   sectionTitle: {
     fontWeight: 700,
@@ -217,7 +206,7 @@ const styles = {
   accordion: {
     mb: 2,
     borderRadius: '16px',
-    boxShadow: '0 4px 24px rgba(30,125,189,0.08)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     background: 'rgba(255,255,255,0.95)',
     border: '1px solid rgba(30,125,189,0.1)',
     backdropFilter: 'blur(10px)',
@@ -225,11 +214,11 @@ const styles = {
     '&:before': { display: 'none' },
     '&:hover': {
       transform: 'translateY(-2px)',
-      boxShadow: '0 8px 32px rgba(30,125,189,0.15)',
+      boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
       borderColor: 'rgba(30,125,189,0.2)',
     },
     '&.Mui-expanded': {
-      boxShadow: '0 8px 32px rgba(30,125,189,0.15)',
+      boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
       borderColor: 'rgba(30,125,189,0.3)',
     },
   },

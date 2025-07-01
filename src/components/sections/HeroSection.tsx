@@ -132,7 +132,7 @@ const styles = {
     gap: 1.5,
     bgcolor: '#fff',
     borderRadius: 4,
-    boxShadow: '0 2px 10px 0 rgba(30,125,189,0.07)',
+    boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
     px: 2.5,
     py: 1.5,
     minHeight: 90,
@@ -144,7 +144,7 @@ const styles = {
     border: 'none',
     transition: 'box-shadow 0.3s, transform 0.3s',
     '&:hover': {
-      boxShadow: '0 6px 18px 0 #1e7dbd18',
+      boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
       transform: 'scale(1.025)',
     },
   },

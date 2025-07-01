@@ -51,7 +51,7 @@ const PricesSection: React.FC = () => {
             sx={{
               background: 'linear-gradient(145deg, #ffffff, #f8f9ff)',
               borderRadius: 5,
-              boxShadow: '0 8px 32px rgba(30,125,189,0.12)',
+              boxShadow: '0 8px 25px 0 rgba(30,125,189,0.15), 0 4px 12px 0 rgba(0,0,0,0.1)',
               border: '1px solid rgba(30,125,189,0.15)',
               p: 4,
               m: 2,
@@ -87,7 +87,7 @@ const PricesSection: React.FC = () => {
               },
               '&:hover': {
                 transform: 'translateY(-12px) scale(1.02)',
-                boxShadow: '0 16px 48px rgba(30,125,189,0.18)',
+                boxShadow: '0 12px 35px 0 rgba(30,125,189,0.25), 0 6px 20px 0 rgba(0,0,0,0.15)',
                 borderColor: 'rgba(30,125,189,0.3)',
                 '&::before': {
                   opacity: 1,
