@@ -326,11 +326,3 @@ MIT License
 3. Commit изменения (`git commit -m 'Add amazing feature'`)
 4. Push в branch (`git push origin feature/amazing-feature`)
 5. Откройте Pull Request
-
-## 📞 Контакты
-
-- **Телефон**: +7 (XXX) XXX-XX-XX
-- **Email**: info@erudit-center.ru
-- **Telegram**: @erudit_center
-- **ВКонтакте**: vk.com/erudit_center
-
