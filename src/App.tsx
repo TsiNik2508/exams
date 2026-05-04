@@ -3,6 +3,8 @@ import { Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme/index';
 import { Navbar, Footer, ScrollToTop, SocialFloatingMenu } from './components/common';
+import YandexMetrika from './components/common/YandexMetrika';
+import SEOHandler from './components/common/SEOHandler';
 import React, { Suspense, lazy } from 'react';
 import bgMain from './assets/background/bg-main.png';
 import priceBg from './assets/background/price-bg.png';
@@ -15,6 +17,10 @@ const SubjectPage = lazy(() => import('./components/pages/SubjectPage'));
 const SummerCoursePage = lazy(() => import('./components/pages/SummerCoursePage'));
 const FAQPage = lazy(() => import('./components/pages/FAQPage'));
 const PricesPage = lazy(() => import('./components/pages/PricesPage'));
+const ThankYouPage = lazy(() => import('./components/pages/ThankYouPage'));
+const ErrorPage = lazy(() => import('./components/pages/ErrorPage'));
+const TermsPage = lazy(() => import('./components/pages/TermsPage'));
+const PrivacyPolicyPage = lazy(() => import('./components/pages/PrivacyPolicyPage'));
 const HeroSection = lazy(() => import('./components/sections/HeroSection'));
 const BenefitsSection = lazy(() => import('./components/sections/BenefitsSection'));
 const PricesSection = lazy(() => import('./components/sections/PricesSection'));
@@ -111,6 +117,7 @@ const FAQPageWithRedBg = React.memo(() => (
       bottom: 0,
       backgroundColor: 'rgba(0, 0, 0, 0.02)',
       zIndex: 0,
+      pointerEvents: 'none',
     },
   }}>
     <Suspense fallback={<LoadingFallback />}>
@@ -171,6 +178,8 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
+        <SEOHandler />
+        <YandexMetrika />
         <Box sx={{ 
           position: 'relative', 
           minHeight: '100vh', 
@@ -187,7 +196,11 @@ function App() {
                   <Route path="/summer" element={<SummerCoursePageWithRedBg />} />
                   <Route path="/faq" element={<FAQPageWithRedBg />} />
                   <Route path="/prices" element={<PricesPageWithRedBg />} />
+                  <Route path="/terms" element={<TermsPage />} />
+                  <Route path="/privacy" element={<PrivacyPolicyPage />} />
+                  <Route path="/thank-you" element={<ThankYouPage />} />
                   <Route path="/:examType/:subject" element={<SubjectPageWithRedBg />} />
+                  <Route path="*" element={<ErrorPage />} />
                 </Routes>
               </Suspense>
             </Box>

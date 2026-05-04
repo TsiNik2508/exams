@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Typography, Box, CircularProgress, IconButton, Alert } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Box, CircularProgress, IconButton, Alert, FormControlLabel, Checkbox, FormHelperText, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface PopupFormProps {
   open: boolean;
@@ -19,6 +20,10 @@ const PopupForm: React.FC<PopupFormProps> = ({ open, onClose, section, subject, 
   const [errorMessage, setErrorMessage] = useState('');
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
   const phoneInputRef = useRef<HTMLInputElement>(null);
+  const [acceptPolicy, setAcceptPolicy] = useState(false);
+  const [policyError, setPolicyError] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Сброс состояния при открытии попапа
   useEffect(() => {
@@ -27,6 +32,8 @@ const PopupForm: React.FC<PopupFormProps> = ({ open, onClose, section, subject, 
       setSubmitStatus('idle');
       setErrorMessage('');
       setIsSubmitting(false);
+      setAcceptPolicy(false);
+      setPolicyError(false);
     }
   }, [open, formKey]);
 
@@ -77,11 +84,19 @@ const PopupForm: React.FC<PopupFormProps> = ({ open, onClose, section, subject, 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!form.name || !form.phone || !form.email) {
+    if (!form.name || !form.phone) {
       setSubmitStatus('error');
-      setErrorMessage('Пожалуйста, заполните все поля');
+      setErrorMessage('Пожалуйста, заполните имя и телефон');
       return;
     }
+
+    if (!acceptPolicy) {
+      setPolicyError(true);
+      setSubmitStatus('error');
+      setErrorMessage('Пожалуйста, подтвердите согласие на обработку персональных данных');
+      return;
+    }
+    setPolicyError(false);
 
     // Проверяем, прошло ли достаточно времени с последней отправки
     const now = Date.now();
@@ -120,9 +135,22 @@ const PopupForm: React.FC<PopupFormProps> = ({ open, onClose, section, subject, 
       const data = await response.json();
 
       if (data.success) {
-        setSubmitStatus('success');
+        // Закрываем попап и перенаправляем на страницу "Спасибо"
+        onClose();
+        
+        // Отправляем событие в Яндекс.Метрику
+        if (typeof window.ym === 'function') {
+          window.ym(104015630, 'hit', '/thank-you');
+        }
+        
+        navigate('/thank-you', { 
+          state: { from: location.pathname },
+          replace: true 
+        });
         setForm({ name: '', phone: '', email: '', message: '' });
         setLastSubmitTime(now); // Записываем время успешной отправки
+        setAcceptPolicy(false);
+        setPolicyError(false);
       } else {
         // Проверяем конкретные ошибки Web3Forms
         if (response.status === 429) {
@@ -167,21 +195,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ open, onClose, section, subject, 
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ overflowY: 'unset' }}>
-        {submitStatus === 'success' ? (
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', py: 6, px: 2, textAlign: 'center', animation: 'fadeIn 0.7s' }}>
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginBottom: 16 }}>
-              <circle cx="32" cy="32" r="32" fill="#4caf50" fillOpacity="0.15"/>
-              <path d="M20 34L29 43L44 25" stroke="#4caf50" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <Typography variant="h5" sx={{ fontWeight: 800, color: '#388e3c', mb: 1 }}>
-              Спасибо за заявку!
-            </Typography>
-            <Typography variant="body1" sx={{ color: '#444', mb: 1, fontSize: 18 }}>
-              Мы свяжемся с вами в ближайшее время.
-            </Typography>
-          </Box>
-        ) : (
-          <Box component="form" onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit}>
             <TextField
               fullWidth
               label="Ваше имя"
@@ -208,7 +222,7 @@ const PopupForm: React.FC<PopupFormProps> = ({ open, onClose, section, subject, 
             />
             <TextField
               fullWidth
-              label="Email"
+              label="Email (необязательно)"
               name="email"
               type="email"
               value={form.email}
@@ -230,6 +244,40 @@ const PopupForm: React.FC<PopupFormProps> = ({ open, onClose, section, subject, 
                 rows={4}
                 sx={{ mb: 2 }}
               />
+            )}
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={acceptPolicy}
+                  onChange={(e) => {
+                    setAcceptPolicy(e.target.checked);
+                    if (policyError) {
+                      setPolicyError(false);
+                    }
+                  }}
+                  color="primary"
+                  disabled={isSubmitting}
+                />
+              }
+              sx={{ alignItems: 'flex-start', mb: 0 }}
+              label={
+                <Typography component="span" color="text.secondary" sx={{ lineHeight: 1.5 }}>
+                  Я согласен(а) с{' '}
+                  <Box component="a" href="/terms" target="_blank" rel="noopener noreferrer" sx={{ color: '#1e7dbd', fontWeight: 600 }}>
+                    Пользовательским соглашением
+                  </Box>{' '}
+                  и{' '}
+                  <Box component="a" href="/privacy" target="_blank" rel="noopener noreferrer" sx={{ color: '#1e7dbd', fontWeight: 600 }}>
+                    Политикой конфиденциальности
+                  </Box>
+                </Typography>
+              }
+            />
+            {policyError && (
+              <FormHelperText error sx={{ mb: 2 }}>
+                Пожалуйста, подтвердите согласие на обработку персональных данных
+              </FormHelperText>
             )}
             {submitStatus === 'error' && (
               <Alert severity="error" sx={{ mb: 2 }}>
@@ -262,7 +310,6 @@ const PopupForm: React.FC<PopupFormProps> = ({ open, onClose, section, subject, 
               </Button>
             </DialogActions>
           </Box>
-        )}
       </DialogContent>
     </Dialog>
   );

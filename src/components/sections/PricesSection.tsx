@@ -17,7 +17,7 @@ const prices = [
   {
     title: 'ЕГЭ',
     desc: 'Подготовка к экзаменам 10-11 класс',
-    price: '5400 ₽/мес',
+    price: '5900 ₽/мес',
     icon: <EmojiEventsIcon sx={{ color: '#1e7dbd', fontSize: 36 }} />, 
     badge: 'Хит',
     benefits: ['Группы до 8 человек', 'Авторские материалы', 'Пробный урок бесплатно'],
@@ -25,7 +25,7 @@ const prices = [
   {
     title: '5-8 класс',
     desc: 'Школьные предметы',
-    price: '5400 ₽/мес',
+    price: '4900 ₽/мес',
     icon: <MenuBookIcon sx={{ color: '#1e7dbd', fontSize: 36 }} />, 
     benefits: ['Индивидуальный подход', 'Домашние задания', 'Поддержка преподавателя'],
   },

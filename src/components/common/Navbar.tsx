@@ -2,6 +2,7 @@ import { Box, Container, IconButton, Drawer, List, ListItem, ListItemText, Slide
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import { useState, useRef, useCallback, useMemo } from 'react';
 import React from 'react';
@@ -131,6 +132,21 @@ const styles = {
     display: { xs: 'none', md: 'flex' },
     alignItems: 'center',
     gap: 2,
+  },
+  mobilePhone: {
+    display: { xs: 'flex', md: 'none' },
+    alignItems: 'center',
+    gap: 0.5,
+    color: '#1e7dbd',
+    textDecoration: 'none',
+    fontWeight: 500,
+    fontSize: '0.8rem',
+    transition: 'color 0.3s ease',
+    marginLeft: 'auto',
+    marginRight: 2,
+    '&:hover': {
+      color: '#f2aa8d',
+    }
   },
   phone: {
     display: 'flex',
@@ -329,6 +345,15 @@ const ContactInfo = React.memo(() => (
   <Box sx={styles.contactInfo}>
     <Box
       component="a"
+      href="tel:+79522817749"
+      sx={styles.phone}
+    >
+      <PhoneIcon fontSize="small" />
+      +7 (952) 281-77-49
+    </Box>
+    
+    <Box
+      component="a"
       href="mailto:erudite_edu@mail.ru"
       sx={styles.phone}
     >
@@ -339,7 +364,7 @@ const ContactInfo = React.memo(() => (
     <Box sx={styles.socialButtons}>
       <IconButton
         component="a"
-        href="https://t.me/erudite_school_ru"
+        href="https://t.me/prohor_13"
         target="_blank"
         rel="noopener noreferrer"
         sx={styles.socialButton}
@@ -348,7 +373,7 @@ const ContactInfo = React.memo(() => (
       </IconButton>
       <IconButton
         component="a"
-        href="https://vk.com/club229911521"
+        href="https://vk.com/im?entrypoint=community_page&media=&sel=-229911521"
         target="_blank"
         rel="noopener noreferrer"
         sx={styles.socialButton}
@@ -456,6 +481,13 @@ const Navbar = () => {
         <Box sx={styles.drawerContactInfo}>
           <IconButton
             component="a"
+            href="tel:+79522817749"
+            sx={styles.socialButton}
+          >
+            <PhoneIcon />
+          </IconButton>
+          <IconButton
+            component="a"
             href="mailto:erudite_edu@mail.ru"
             target="_blank"
             rel="noopener noreferrer"
@@ -465,7 +497,7 @@ const Navbar = () => {
           </IconButton>
           <IconButton
             component="a"
-            href="https://t.me/erudite_school_ru"
+            href="https://t.me/prohor_13"
             target="_blank"
             rel="noopener noreferrer"
             sx={styles.socialButton}
@@ -474,7 +506,7 @@ const Navbar = () => {
           </IconButton>
           <IconButton
             component="a"
-            href="https://vk.com/club229911521"
+            href="https://vk.com/im?entrypoint=community_page&media=&sel=-229911521"
             target="_blank"
             rel="noopener noreferrer"
             sx={styles.socialButton}
@@ -527,6 +559,16 @@ const Navbar = () => {
                 <Box component="img" src={logo} alt="Logo" sx={styles.logoImage} />
               </Box>
               
+              {/* Мобильный телефон */}
+              <Box
+                component="a"
+                href="tel:+79522817749"
+                sx={styles.mobilePhone}
+              >
+                <PhoneIcon fontSize="small" />
+                +7 (952) 281-77-49
+              </Box>
+              
               <ContactInfo />
               
               <IconButton
@@ -534,7 +576,7 @@ const Navbar = () => {
                 aria-label="open drawer"
                 edge="end"
                 onClick={handleMobileToggle}
-                sx={{ ...styles.mobileMenuButton, ml: 'auto' }}
+                sx={styles.mobileMenuButton}
               >
                 <MenuIcon />
               </IconButton>

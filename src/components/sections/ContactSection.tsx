@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Typography, TextField, Button, Paper, Alert, CircularProgress } from '@mui/material';
+import { Box, Typography, TextField, Button, Paper, Alert, CircularProgress, FormControlLabel, Checkbox, FormHelperText } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const ContactSection: React.FC = () => {
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [acceptPolicy, setAcceptPolicy] = useState(false);
+  const [policyError, setPolicyError] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Удаляю localStorage из useEffect
   useEffect(() => {
@@ -66,11 +71,19 @@ const ContactSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!form.name || !form.phone || !form.email || !form.message) {
+    if (!form.name || !form.phone || !form.message) {
       setSubmitStatus('error');
-      setErrorMessage('Пожалуйста, заполните все поля');
+      setErrorMessage('Пожалуйста, заполните имя, телефон и сообщение');
       return;
     }
+
+    if (!acceptPolicy) {
+      setPolicyError(true);
+      setSubmitStatus('error');
+      setErrorMessage('Пожалуйста, подтвердите согласие на обработку персональных данных');
+      return;
+    }
+    setPolicyError(false);
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
@@ -98,9 +111,19 @@ const ContactSection: React.FC = () => {
       const data = await response.json();
 
       if (data.success) {
-        setSubmitStatus('success');
-        // Очищаем форму после успешной отправки
+        // Отправляем событие в Яндекс.Метрику
+        if (typeof window.ym === 'function') {
+          window.ym(104015630, 'hit', '/thank-you');
+        }
+        
+        // Перенаправляем на страницу "Спасибо"
+        navigate('/thank-you', { 
+          state: { from: location.pathname },
+          replace: true 
+        });
         setForm({ name: '', phone: '', email: '', message: '' });
+        setAcceptPolicy(false);
+        setPolicyError(false);
       } else {
         throw new Error('Ошибка отправки формы');
       }
@@ -118,64 +141,84 @@ const ContactSection: React.FC = () => {
       <Typography variant="h4" textAlign="center" sx={{ mb: 4, fontWeight: 700, color: '#1e7dbd', zIndex: 2, position: 'relative' }}>Свяжитесь с нами</Typography>
       
       <Box sx={{ maxWidth: 1200, mx: 'auto', px: 2, position: 'relative', zIndex: 2 }}>
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: 4, md: 5 }, mb: { xs: 5, md: 6 } }}>
           {/* Контактная информация */}
           <Box sx={{ flex: { md: '0 0 40%' } }}>
-            <Paper elevation={0} sx={{ p: 4, height: '100%', background: 'rgba(255, 255, 255, 0.9)', borderRadius: 4 }}>
-              <Typography variant="h6" sx={{ mb: 3, color: '#1e7dbd', fontWeight: 700 }}>Контактная информация</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                <LocationOnIcon sx={{ color: '#1e7dbd', mr: 2, fontSize: 28 }} />
-                <Box>
-                  <Typography sx={{ fontWeight: 600, mb: 0.5 }}>Адрес</Typography>
-                  <Typography sx={{ color: '#666' }}>г. Москва, ул. Примерная, 123</Typography>
+            <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, height: '100%', background: 'rgba(255, 255, 255, 0.9)', borderRadius: 4, display: 'flex', flexDirection: 'column', gap: 3 }}>
+              <Box>
+                <Typography variant="h6" sx={{ mb: 3, color: '#1e7dbd', fontWeight: 700 }}>Контактная информация</Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                  <LocationOnIcon sx={{ color: '#1e7dbd', mr: 2, fontSize: 28 }} />
+                  <Box>
+                    <Typography sx={{ fontWeight: 600, mb: 0.5 }}>Адрес</Typography>
+                    <Typography sx={{ color: '#666' }}>г. Санкт-Петербург, Коломяжский проспект, 20</Typography>
+                  </Box>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                  <PhoneIcon sx={{ color: '#1e7dbd', mr: 2, fontSize: 28 }} />
+                  <Box>
+                    <Typography sx={{ fontWeight: 600, mb: 0.5 }}>Телефон</Typography>
+                    <Typography sx={{ color: '#666' }}>+7 (952) 281-77-49</Typography>
+                  </Box>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                  <EmailIcon sx={{ color: '#1e7dbd', mr: 2, fontSize: 28 }} />
+                  <Box>
+                    <Typography sx={{ fontWeight: 600, mb: 0.5 }}>Email</Typography>
+                    <Typography sx={{ color: '#666' }}>erudite_edu@mail.ru</Typography>
+                  </Box>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <AccessTimeIcon sx={{ color: '#1e7dbd', mr: 2, fontSize: 28 }} />
+                  <Box>
+                    <Typography sx={{ fontWeight: 600, mb: 0.5 }}>Режим работы</Typography>
+                    <Typography sx={{ color: '#666' }}>Пн-Пт: 9:00 - 20:00</Typography>
+                    <Typography sx={{ color: '#666' }}>Сб-Вс: 10:00 - 18:00</Typography>
+                  </Box>
                 </Box>
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                <PhoneIcon sx={{ color: '#1e7dbd', mr: 2, fontSize: 28 }} />
-                <Box>
-                  <Typography sx={{ fontWeight: 600, mb: 0.5 }}>Телефон</Typography>
-                  <Typography sx={{ color: '#666' }}>+7 (123) 456-78-90</Typography>
-                </Box>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                <EmailIcon sx={{ color: '#1e7dbd', mr: 2, fontSize: 28 }} />
-                <Box>
-                  <Typography sx={{ fontWeight: 600, mb: 0.5 }}>Email</Typography>
-                  <Typography sx={{ color: '#666' }}>erudite_edu@mail.ru</Typography>
-                </Box>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <AccessTimeIcon sx={{ color: '#1e7dbd', mr: 2, fontSize: 28 }} />
-                <Box>
-                  <Typography sx={{ fontWeight: 600, mb: 0.5 }}>Режим работы</Typography>
-                  <Typography sx={{ color: '#666' }}>Пн-Пт: 9:00 - 20:00</Typography>
-                  <Typography sx={{ color: '#666' }}>Сб-Вс: 10:00 - 18:00</Typography>
-                </Box>
-              </Box>
+
             </Paper>
           </Box>
 
-          {/* Форма обратной связи */}
-          <Box sx={{ flex: { md: '0 0 60%' } }}>
-            <Paper elevation={0} sx={{ p: 4, background: 'rgba(255, 255, 255, 0.9)', borderRadius: 4 }}>
+          {/* Карта */}
+          <Box sx={{ flex: 1 }}>
+            <Paper elevation={0} sx={{ p: { xs: 2, md: 4 }, background: 'rgba(255, 255, 255, 0.9)', borderRadius: 4, height: '100%' }}>
+              <Box>
+                <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#1e7dbd', mb: 1.5 }}>Мы на карте</Typography>
+                <Box
+                  component="iframe"
+                  title="Карта - Коломяжский проспект, 20"
+                  src="https://yandex.ru/map-widget/v1/?l=map&ll=30.297223%2C59.999995&z=18&lang=ru_RU&pt=30.297223,59.999995,pm2rdm"
+                  sx={{
+                    width: '100%',
+                    minHeight: { xs: 300, md: 420 },
+                    border: 0,
+                    borderRadius: 3,
+                    boxShadow: '0 12px 32px rgba(30,125,189,0.12)',
+                  }}
+                  allowFullScreen
+                />
+              </Box>
+            </Paper>
+          </Box>
+        </Box>
+
+        {/* Форма обратной связи */}
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: { xs: 3, md: 4 },
+              background: 'rgba(255, 255, 255, 0.94)',
+              borderRadius: 4,
+              maxWidth: 720,
+              width: '100%',
+              boxShadow: '0 16px 40px rgba(30,125,189,0.12)',
+            }}
+          >
               <Typography variant="h6" sx={{ mb: 3, color: '#1e7dbd', fontWeight: 700 }}>Напишите нам</Typography>
               
-              {/* Статус отправки */}
-              {submitStatus === 'success' ? (
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', py: 6, px: 2, textAlign: 'center', animation: 'fadeIn 0.7s' }}>
-                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginBottom: 16 }}>
-                    <circle cx="32" cy="32" r="32" fill="#4caf50" fillOpacity="0.15"/>
-                    <path d="M20 34L29 43L44 25" stroke="#4caf50" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  <Typography variant="h5" sx={{ fontWeight: 800, color: '#388e3c', mb: 1 }}>
-                    Спасибо за заявку!
-                  </Typography>
-                  <Typography variant="body1" sx={{ color: '#444', mb: 1, fontSize: 18 }}>
-                    Мы свяжемся с вами в ближайшее время.
-                  </Typography>
-                </Box>
-              ) : (
-                <>
                   {submitStatus === 'error' && (
                     <Alert severity="error" sx={{ mb: 3 }}>
                       {errorMessage}
@@ -222,7 +265,7 @@ const ContactSection: React.FC = () => {
                 </Box>
                 <TextField
                   fullWidth
-                  label="Email"
+                  label="Email (необязательно)"
                   name="email"
                   type="email"
                   value={form.email}
@@ -247,9 +290,9 @@ const ContactSection: React.FC = () => {
                   value={form.message}
                   onChange={handleChange}
                   variant="outlined"
-                      disabled={isSubmitting}
+                  disabled={isSubmitting}
                   sx={{
-                    mb: 2,
+                    mb: 3,
                     '& .MuiOutlinedInput-root': {
                       '& fieldset': { borderColor: '#e0e0e0' },
                       '&:hover fieldset': { borderColor: '#1e7dbd' },
@@ -257,41 +300,75 @@ const ContactSection: React.FC = () => {
                     },
                   }}
                 />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  fullWidth
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={acceptPolicy}
+                      onChange={(e) => {
+                        setAcceptPolicy(e.target.checked);
+                        if (policyError) {
+                          setPolicyError(false);
+                        }
+                      }}
+                      color="primary"
                       disabled={isSubmitting}
-                  sx={{
-                    fontWeight: 700,
-                    borderRadius: 2,
-                    fontSize: 17,
-                    py: 1.5,
-                    boxShadow: '0 4px 24px 0 rgba(30,125,189,0.13)',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      boxShadow: '0 8px 32px 0 rgba(242,170,141,0.18)',
-                      transform: 'translateY(-2px)',
-                    },
-                        '&:disabled': {
-                          opacity: 0.7,
-                        },
-                  }}
-                >
-                      {isSubmitting ? (
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                          <CircularProgress size={20} color="inherit" />
-                          Отправляем...
-                        </Box>
-                      ) : (
-                        'Отправить сообщение'
-                      )}
-                </Button>
+                    />
+                  }
+                  sx={{ alignItems: 'flex-start', mb: policyError ? 0 : 3 }}
+                  label={
+                    <Typography component="span" color="text.secondary" sx={{ lineHeight: 1.5 }}>
+                      Я согласен(а) с{' '}
+                      <Box component="a" href="/terms" target="_blank" rel="noopener noreferrer" sx={{ color: '#1e7dbd', fontWeight: 600 }}>
+                        Пользовательским соглашением
+                      </Box>{' '}
+                      и{' '}
+                      <Box component="a" href="/privacy" target="_blank" rel="noopener noreferrer" sx={{ color: '#1e7dbd', fontWeight: 600 }}>
+                        Политикой конфиденциальности
+                      </Box>
+                    </Typography>
+                  }
+                />
+                {policyError && (
+                  <FormHelperText error sx={{ mb: 3 }}>
+                    Пожалуйста, подтвердите согласие на обработку персональных данных
+                  </FormHelperText>
+                )}
+
+                <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    disabled={isSubmitting}
+                    sx={{
+                      fontWeight: 700,
+                      borderRadius: 2,
+                      fontSize: 17,
+                      py: 1.5,
+                      boxShadow: '0 4px 24px 0 rgba(30,125,189,0.13)',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        boxShadow: '0 8px 32px 0 rgba(242,170,141,0.18)',
+                        transform: 'translateY(-2px)',
+                      },
+                      '&:disabled': {
+                        opacity: 0.7,
+                      },
+                    }}
+                  >
+                    {isSubmitting ? (
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <CircularProgress size={20} color="inherit" />
+                        Отправляем...
+                      </Box>
+                    ) : (
+                      'Отправить сообщение'
+                    )}
+                  </Button>
+                </Box>
               </Box>
-                </>
-              )}
             </Paper>
-          </Box>
         </Box>
       </Box>
     </Box>

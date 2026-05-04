@@ -30,3 +30,6 @@ coverage/
 *.tgz
 public/logo/*.psd
 src/logo/*.psd
+
+# Reg.ru static deploy bundle (npm run build:regru)
+regru-deploy/

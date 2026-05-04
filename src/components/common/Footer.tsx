@@ -1,13 +1,19 @@
 import { memo, lazy, Suspense } from 'react';
-import { Box, Container, Typography, Link, Skeleton } from '@mui/material';
+import { Box, Container, Typography, Skeleton } from '@mui/material';
 
 // Ленивая загрузка логотипа
 const Logo = lazy(() => import('./Logo'));
 
 const contactLinks = [
-  { text: 'VK', href: 'https://vk.com/club229911521' },
-  { text: 'Telegram', href: 'https://t.me/erudite_school_ru' },
+  { text: 'WhatsApp', href: 'https://wa.me/79522817749' },
+  { text: 'VK', href: 'https://vk.com/im?entrypoint=community_page&media=&sel=-229911521' },
+  { text: 'Telegram', href: 'https://t.me/prohor_13' },
   { text: 'Email', href: 'mailto:erudite_edu@mail.ru' },
+];
+
+const legalLinks = [
+  { text: 'Пользовательское соглашение', href: '/terms' },
+  { text: 'Политика конфиденциальности', href: '/privacy' },
 ];
 
 const styles = {
@@ -16,6 +22,8 @@ const styles = {
     color: '#fff',
     py: 6,
     mt: 'auto',
+    position: 'relative',
+    zIndex: 2,
   },
   container: {
     display: 'flex',
@@ -52,8 +60,13 @@ const styles = {
     color: '#f2aa8d',
     fontWeight: 500,
     fontSize: 15,
+    display: 'inline-block',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    transition: 'all 0.3s ease',
     '&:hover': {
       color: '#f8c3b0',
+      backgroundColor: 'rgba(242,170,141,0.1)',
     },
   },
   copyright: {
@@ -81,16 +94,45 @@ const Footer = memo(() => (
 
         <Box sx={styles.linksContainer}>
           {contactLinks.map((link) => (
-            <Link
+            <Box
               key={link.text}
+              component="a"
               href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              underline="hover"
-              sx={styles.link}
+              target={link.text === 'Email' ? undefined : '_blank'}
+              rel={link.text === 'Email' ? undefined : 'noopener noreferrer'}
+              sx={{
+                ...styles.link,
+                textDecoration: 'none',
+                cursor: 'pointer',
+                '&:hover': {
+                  ...styles.link['&:hover'],
+                  textDecoration: 'underline',
+                }
+              }}
             >
               {link.text}
-            </Link>
+            </Box>
+          ))}
+        </Box>
+
+        <Box sx={{ ...styles.linksContainer, mb: 1 }}>
+          {legalLinks.map((link) => (
+            <Box
+              key={link.text}
+              component="a"
+              href={link.href}
+              sx={{
+                ...styles.link,
+                textDecoration: 'none',
+                cursor: 'pointer',
+                '&:hover': {
+                  ...styles.link['&:hover'],
+                  textDecoration: 'underline',
+                }
+              }}
+            >
+              {link.text}
+            </Box>
           ))}
         </Box>
 

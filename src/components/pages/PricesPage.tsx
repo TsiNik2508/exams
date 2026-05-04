@@ -3,6 +3,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined';
 import { useState } from 'react';
 import PopupForm from '../common/PopupForm';
+import SubjectSelectionModal from '../common/SubjectSelectionModal';
 
 const styles = {
   pageWrapper: {
@@ -333,7 +334,7 @@ const benefitCards = [
   {
     type: 'blue',
     title: '1000 ₽ за рекомендацию',
-    desc: 'тому, кто порекомендовал, и другу, единовременная скидка 1000 рублей при покупке обучения любого предмета\n*скидка действует до 02.09.2024',
+    desc: 'тому, кто порекомендовал, и другу, единовременная скидка 1000 рублей при покупке обучения любого предмета\n*скидка действует до 02.09.2027',
     bullets: [],
   },
   {
@@ -342,9 +343,12 @@ const benefitCards = [
     accent: 'второй предмет',
     desc: '',
     bullets: [
-      'Курсы 10–11 класс 4900 ₽ — первый предмет в месяц, 4500 ₽ — второй и последующие предметы',
-      'Курсы 7–9 класс 4600 ₽ — первый, 4200 ₽ — второй и последующие',
-      'Курсы 5–6 класс — 3600 ₽ — первый, 3300 ₽ — второй и последующие',
+      'Курсы ЕГЭ 5900р - первый предмет',
+      'Курсы ОГЭ 5400р - первый предмет',
+      'Курсы 5-8 класс 4900р - первый предмет',
+      'Скидка на 2 предмета 5%',
+      'Скидка на 3 предмета 7%',
+      'Скидка на 4 предмета 10%',
     ],
   },
   {
@@ -359,10 +363,17 @@ const benefitCards = [
 const PricesPage = () => {
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupCourse, setPopupCourse] = useState('');
+  const [subjectModalOpen, setSubjectModalOpen] = useState(false);
+  const [selectedCourseType, setSelectedCourseType] = useState('');
 
   const handleOpenPopup = (course: string) => {
     setPopupCourse(course);
     setPopupOpen(true);
+  };
+
+  const handleOpenSubjectModal = (courseType: string) => {
+    setSelectedCourseType(courseType);
+    setSubjectModalOpen(true);
   };
 
   return (
@@ -377,7 +388,7 @@ const PricesPage = () => {
         {/* Бегущая строка */}
         <Box sx={styles.tickerWrapper}>
           <Box component="span" sx={styles.tickerText}>
-            {Array(4).fill('Скидка до 30% на новый учебный год при оплате до 30.06.2025! • Скидка до 30% на новый учебный год при оплате до 30.06.2025! • ').join('')}
+            {Array(4).fill('Скидка до 30% на новый учебный год при оплате до 30.06.2026! • Скидка до 30% на новый учебный год при оплате до 30.06.2026! • ').join('')}
           </Box>
         </Box>
 
@@ -399,27 +410,27 @@ const PricesPage = () => {
             Записаться
           </Button>
         </Box>
-        <Box sx={{ ...styles.withFramePrice, ...styles.withFramePriceOrange }}>10 000 ₽ / курс</Box>
+        <Box sx={{ ...styles.withFramePrice, ...styles.withFramePriceOrange }}>6 000 ₽ / курс</Box>
 
         {/* ЕГЭ */}
         <Box sx={styles.courseFrame}>
           <Box sx={styles.courseInfo}>
-            <Typography sx={styles.courseTitle}>Подготовка к ЕГЭ 2024/2025</Typography>
-            <Typography sx={styles.courseDesc}>10–11 класс. Мини-группы до 8 учеников, 1 раз в неделю по 120 минут, домашние задания с проверкой, чат с преподавателем и однокурсниками, онлайн-платформа.</Typography>
+            <Typography sx={styles.courseTitle}>Подготовка к ЕГЭ 2025/2026</Typography>
+            <Typography sx={styles.courseDesc}>10–11 класс. Мини-группы до 8 учеников, 1 раз в неделю по 135 мин (3 ак.ч.), домашние задания с проверкой, чат с преподавателем и однокурсниками, онлайн-платформа.</Typography>
             <ul style={styles.courseList}>
-              <li><CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 18, mr: 1 }} />1 раз в неделю по 120 минут</li>
+              <li><CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 18, mr: 1 }} />1 раз в неделю по 135 мин (3 ак.ч.)</li>
               <li><CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 18, mr: 1 }} />Онлайн-платформа</li>
               <li><CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 18, mr: 1 }} />Первое занятие — бесплатно</li>
             </ul>
           </Box>
           <Button 
             sx={styles.courseBtn}
-            onClick={() => handleOpenPopup('Подготовка к ЕГЭ 2024/2025')}
+            onClick={() => handleOpenSubjectModal('Подготовка к ЕГЭ 2025/2026')}
           >
             Выбрать предмет
           </Button>
         </Box>
-        <Box sx={styles.withFramePrice}>5 400 ₽ / мес.</Box>
+        <Box sx={styles.withFramePrice}>5 900 ₽ / мес.</Box>
 
         {/* С нами выгодно */}
         <Box sx={styles.benefitSection}>
@@ -517,7 +528,7 @@ const PricesPage = () => {
               </Box>
             </Box>
             {/* Нижний блок - на всю ширину */}
-            <Box sx={{ ...styles.benefitCard, ...styles.benefitCardWide, zIndex: 2, position: 'relative', mt: { xs: 2, md: '-80px' }, flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+            <Box sx={{ ...styles.benefitCard, ...styles.benefitCardWide, zIndex: 2, position: 'relative', mt: { xs: 2, md: '-50px' }, flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
               <Box sx={{ ...styles.benefitCardTitle, color: '#444', fontWeight: 700, fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.6rem' }, mb: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
                 <Box sx={{ width: 12, height: 12, bgcolor: '#f2aa8d', borderRadius: '50%', mr: 1, display: 'inline-block' }} />
                 Скидка 10% за разовую
@@ -559,17 +570,17 @@ const PricesPage = () => {
         {/* ОГЭ */}
         <Box sx={{ ...styles.courseFrame, ...styles.courseFrameOrange }}>
           <Box sx={styles.courseInfo}>
-            <Typography sx={{ ...styles.courseTitle, ...styles.courseTitleOrange }}>Подготовка к ОГЭ 2024/2025</Typography>
-            <Typography sx={styles.courseDesc}>9 класс. Мини-группы до 8 учеников, 1 раз в неделю по 120 минут, домашние задания с проверкой, чат с преподавателем и однокурсниками, онлайн-платформа.</Typography>
+            <Typography sx={{ ...styles.courseTitle, ...styles.courseTitleOrange }}>Подготовка к ОГЭ 2025/2026</Typography>
+            <Typography sx={styles.courseDesc}>9 класс. Мини-группы до 8 учеников, 1 раз в неделю по 135 мин (3 ак.ч.), домашние задания с проверкой, чат с преподавателем и однокурсниками, онлайн-платформа.</Typography>
             <ul style={styles.courseList}>
-              <li><CheckCircleIcon sx={{ color: '#f2aa8d', fontSize: 18, mr: 1 }} />1 раз в неделю по 120 минут</li>
+              <li><CheckCircleIcon sx={{ color: '#f2aa8d', fontSize: 18, mr: 1 }} />1 раз в неделю по 135 мин (3 ак.ч.)</li>
               <li><CheckCircleIcon sx={{ color: '#f2aa8d', fontSize: 18, mr: 1 }} />Онлайн-платформа</li>
               <li><CheckCircleIcon sx={{ color: '#f2aa8d', fontSize: 18, mr: 1 }} />Первое занятие — бесплатно</li>
             </ul>
           </Box>
           <Button 
             sx={{ ...styles.courseBtn, background: '#f2aa8d', color: '#fff', '&:hover': { background: '#1e7dbd' } }}
-            onClick={() => handleOpenPopup('Подготовка к ОГЭ 2024/2025')}
+            onClick={() => handleOpenSubjectModal('Подготовка к ОГЭ 2025/2026')}
           >
             Выбрать предмет
           </Button>
@@ -580,21 +591,21 @@ const PricesPage = () => {
         <Box sx={styles.courseFrame}>
           <Box sx={styles.courseInfo}>
             <Typography sx={styles.courseTitle}>5–8 класс</Typography>
-            <Typography sx={styles.courseDesc}>Помощь в учебе, мини-группы до 8 учеников, 1 раз в неделю по 90–120 минут, домашние задания с проверкой, чат с преподавателем и однокурсниками, онлайн-платформа.</Typography>
+            <Typography sx={styles.courseDesc}>Помощь в учебе, мини-группы до 8 учеников, 1 раз в неделю по 135 мин (3 ак.ч.), домашние задания с проверкой, чат с преподавателем и однокурсниками, онлайн-платформа.</Typography>
             <ul style={styles.courseList}>
-              <li><CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 18, mr: 1 }} />1 раз в неделю по 90–120 минут</li>
+              <li><CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 18, mr: 1 }} />1 раз в неделю по 135 мин (3 ак.ч.)</li>
               <li><CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 18, mr: 1 }} />Онлайн-платформа</li>
               <li><CheckCircleIcon sx={{ color: '#1e7dbd', fontSize: 18, mr: 1 }} />Первое занятие — бесплатно</li>
             </ul>
           </Box>
           <Button 
             sx={styles.courseBtn}
-            onClick={() => handleOpenPopup('5–8 класс')}
+            onClick={() => handleOpenSubjectModal('5–8 класс')}
           >
             Выбрать предмет
           </Button>
         </Box>
-        <Box sx={styles.withFramePrice}>5 400 ₽ / мес.</Box>
+        <Box sx={styles.withFramePrice}>4 900 ₽ / мес.</Box>
 
         {/* Индивидуальные занятия */}
         <Box sx={styles.courseFrame}>
@@ -614,7 +625,7 @@ const PricesPage = () => {
             Записаться
           </Button>
         </Box>
-        <Box sx={styles.withFramePrice}>1 000–1 500 ₽ / занятие</Box>
+        <Box sx={styles.withFramePrice}>1 500–2 000 ₽ / занятие</Box>
       </Container>
 
       {/* Попап с формой */}
@@ -624,6 +635,13 @@ const PricesPage = () => {
         course={popupCourse}
         section="Стоимость обучения"
         formKey="prices-page"
+      />
+
+      {/* Модальное окно выбора предмета */}
+      <SubjectSelectionModal
+        open={subjectModalOpen}
+        onClose={() => setSubjectModalOpen(false)}
+        courseType={selectedCourseType}
       />
     </Box>
   );
