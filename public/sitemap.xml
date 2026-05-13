@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Основные страницы -->
+  <url>
+    <loc>https://erudite-ege.ru/</loc>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://erudite-ege.ru/summer</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://erudite-ege.ru/faq</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://erudite-ege.ru/prices</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://erudite-ege.ru/terms</loc>
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://erudite-ege.ru/privacy</loc>
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+
+  <!-- ЕГЭ -->
+  <url><loc>https://erudite-ege.ru/ege/math</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/ege/russian</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/ege/physics</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/ege/informatics</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/ege/english</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/ege/biology</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/ege/chemistry</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/ege/history</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/ege/social</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/ege/literature</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+
+  <!-- ОГЭ -->
+  <url><loc>https://erudite-ege.ru/oge/math</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/oge/russian</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/oge/physics</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/oge/informatics</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/oge/english</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/oge/biology</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/oge/chemistry</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/oge/history</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/oge/social</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/oge/literature</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Онлайн -->
+  <url><loc>https://erudite-ege.ru/online/math</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/online/russian</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/online/physics</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/online/informatics</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/online/english</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/online/biology</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/online/chemistry</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/online/history</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/online/social</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/online/literature</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+
+  <!-- 5-8 класс -->
+  <url><loc>https://erudite-ege.ru/middle/math</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/middle/russian</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/middle/physics</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/middle/informatics</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/middle/english</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/middle/biology</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/middle/chemistry</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/middle/history</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/middle/social</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://erudite-ege.ru/middle/literature</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+
+</urlset>
