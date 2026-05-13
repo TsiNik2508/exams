@@ -1,0 +1,84 @@
+User-agent: *
+Allow: /assets/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.css$
+Allow: /*.js$
+Disallow: /thank-you
+Disallow: /*?utm_source=*
+Disallow: /*?utm_medium=*
+Disallow: /*?utm_campaign=*
+Disallow: /*?from=*
+
+User-agent: Googlebot
+Allow: /assets/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.pdf$
+Allow: /*.css$
+Allow: /*.js$
+Disallow: /thank-you
+Disallow: /*?utm_source=*
+Disallow: /*?utm_medium=*
+Disallow: /*?utm_campaign=*
+Disallow: /*?from=*
+
+User-agent: Yandex
+Allow: /assets/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.pdf$
+Allow: /*.css$
+Allow: /*.js$
+Disallow: /thank-you
+Disallow: /*?utm_source=*
+Disallow: /*?utm_medium=*
+Disallow: /*?utm_campaign=*
+Disallow: /*?from=*
+
+Clean-param: yclid&fbclid&ymclid&gclid&_openstat&utm_source&utm_medium&utm_campaign
+Clean-param: etext
+
+User-Agent: GPTBot
+Allow: /
+
+User-Agent: ChatGPT-User
+Allow: /
+
+User-Agent: Google-Extended
+Allow: /
+
+User-Agent: CCBot
+Allow: /
+
+User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: Omgilibot
+Allow: /
+
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: Claude-Web
+Allow: /
+
+User-Agent: YandexAdditional
+Allow: /
+
+User-Agent: AI2Bot
+Allow: /
+
+User-Agent: Ai2Bot-Dolma
+Allow: /
+
+Sitemap: https://erudite-ege.ru/sitemap.xml
